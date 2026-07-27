@@ -40,7 +40,7 @@
       "whatYouNeed": ["component library", "per-component schemas", "structured-output model", "dynamic renderer"],
       "agenticLevel": 3,
       "maturity": "established",
-      "status": "not-implemented"
+      "status": "implemented"
     },
     {
       "id": "sandboxed-code",

@@ -28,6 +28,7 @@ The list runs from least to most agentic. The higher entries let the AI talk; th
 |---|----------|-------|--------|:---:|
 | 1 | **Conversational chatbot / sidebar** | User text | Streamed text (Markdown) | ★☆☆☆☆ |
 | 2 | **Function / Tool Calling** | User text + tool schemas | Structured function call(s) → executed | ★★☆☆☆ |
+| 3 | **Component selection from a catalog** | User text + component catalog | JSON choosing component(s) + their data | ★★★☆☆ |
 **They stack, they aren't exclusive.** Approaches build on each other: #3–#5 and #7 all rely on the tool/function-calling mechanism of #2, a chat surface (#1) can render selected components (#3), and #8 is a transport layer that can carry any of the others. Read the list as capabilities to combine, not options to choose between.
 
 ---
@@ -54,6 +55,15 @@ Each card follows the same shape: **Input → Output → How it works → What y
 - **Best for:** Fetching real-time data, calling APIs, performing discrete actions ("book this", "search flights").
 - **Trade-offs:** ➕ Connects the LLM to real data and actions; supports multi-step reasoning; framework-agnostic. ➖ Non-deterministic; the right tool granularity is hard (too fine = many chained calls, too coarse = inflexible); cost and latency per round-trip.
 
+### 3. Component selection from a catalog
+
+- **Input:** User intent plus a **catalog of pre-built UI components**, each described with a name, a purpose, and an input schema.
+- **Output:** A **Structured Output** JSON document naming one or more components and supplying their prop values (e.g. under a `$props` key).
+- **How it works:** Structured Output constrains the model to emit JSON that matches your schema. A renderer reads that JSON and instantiates the real, hand-built components with the model-supplied data. A "smart wrapper" around each "dumb" presentational component handles events, state, and navigation.
+- **What you need:** A component library, schema descriptions per component, a model that supports Structured Output (`generateObject`/`streamObject`, CopilotKit `useCopilotAction` + `render`), and a dynamic renderer. Weaker models need few-shot examples to infer inputs correctly; some models can't combine Structured Output with Tool Calling (needs an emulation workaround).
+- **Best for:** Rich, interactive answers — cards, forms, charts, product tiles — instead of plain prose.
+- **Trade-offs:** ➕ Interactive and on-brand; components stay hand-built and testable in isolation. ➖ Limited to a fixed catalog; input inference is unreliable on cheap models.
+
 
 ## Engineering comparison
 
@@ -63,6 +73,7 @@ Qualitative ratings to weigh the operational cost of each approach. **Lower is c
 |---|----------|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
 | 1 | Conversational chatbot | Proven | Low | Low | Low | Med | High | Low | Low |
 | 2 | Function / Tool Calling | Proven | Med | Med | Med | Low | Med | Med | Low |
+| 3 | Component selection | Established | Med | Med | Med | Med | High | Low | Med |
 ## Demo workspace
 
 A runnable scaffold for all 8 approaches lives in [`demo/`](./demo/README.md) — Python/FastAPI (uv) + Vue/Nuxt, Docker, and CI. It wires the shared manifest → backend → frontend end-to-end, with every approach left as a clearly marked stub (the `/demo` endpoint returns `501` on purpose). It's a starting point to implement the approaches, not an implementation.

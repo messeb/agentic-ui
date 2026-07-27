@@ -52,7 +52,7 @@ def test_get_unknown_approach_404(client: TestClient) -> None:
 
 def test_unimplemented_demo_endpoints_are_stubbed_501(client: TestClient) -> None:
     unimplemented = [a for a in list_approaches() if a.status == "not-implemented"]
-    assert len(unimplemented) == 6  # approaches #1 and #2 are implemented
+    assert len(unimplemented) == 5  # approaches #1, #2, #3 are implemented
     for approach in unimplemented:
         resp = client.get(f"/api/approaches/{approach.id}/demo")
         assert resp.status_code == status.HTTP_501_NOT_IMPLEMENTED

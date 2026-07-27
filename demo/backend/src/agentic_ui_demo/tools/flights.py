@@ -59,14 +59,16 @@ _SEED_FLIGHTS: list[dict[str, Any]] = [
 _flights: list[dict[str, Any]] = []
 _bookings: dict[str, dict[str, Any]] = {}
 _booking_seq = 0
+_ancillary_cart: list[dict[str, Any]] = []
 
 
 def reset_state() -> None:
     """Restore the demo dataset (used at startup and in tests)."""
-    global _flights, _bookings, _booking_seq
+    global _flights, _bookings, _booking_seq, _ancillary_cart
     _flights = [dict(f) for f in _SEED_FLIGHTS]
     _bookings = {}
     _booking_seq = 0
+    _ancillary_cart = []
 
 
 reset_state()
@@ -74,6 +76,29 @@ reset_state()
 
 def _find(flight_id: str) -> dict[str, Any] | None:
     return next((f for f in _flights if f["id"] == flight_id), None)
+
+
+def all_flights() -> list[dict[str, Any]]:
+    """A copy of the current flight list (shared with approach #3)."""
+    return [dict(f) for f in _flights]
+
+
+# --- ancillary cart (shared server-side cart for approach #3) ----------------
+
+
+def add_to_cart(option: dict[str, Any]) -> list[dict[str, Any]]:
+    """Add an ancillary option to the cart (deduped by id). Returns the cart."""
+    if not any(o["id"] == option["id"] for o in _ancillary_cart):
+        _ancillary_cart.append(option)
+    return list(_ancillary_cart)
+
+
+def get_cart() -> list[dict[str, Any]]:
+    return list(_ancillary_cart)
+
+
+def clear_cart() -> None:
+    _ancillary_cart.clear()
 
 
 # --- tool handlers -----------------------------------------------------------
