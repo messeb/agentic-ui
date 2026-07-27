@@ -6,6 +6,21 @@ and CI — but **no approach is implemented**. Each one is a clearly marked stub
 
 > Looking for the conceptual overview of the 8 approaches? See the [root README](../README.md).
 
+### ✅ Implemented: #1 Conversational chatbot
+
+Approach #1 is fully built as a **reference implementation** — a streaming OpenAI chatbot
+(SSE) with incremental Markdown + code highlighting and smart auto-scroll. The other seven
+remain stubs. To run it:
+
+```bash
+export OPENAI_API_KEY=sk-...     # global env; the backend proxies it, the frontend never sees it
+make dev-backend                 # terminal 1
+make dev-frontend                # terminal 2 → open http://localhost:3000/approaches/conversational-chatbot
+```
+
+Without a key the backend returns `503` and the chat panel shows a clear message. Key files:
+`backend/…/routers/chat.py`, `frontend/composables/useChat.ts`, `frontend/components/ChatPanel.vue`.
+
 ## Two standalone apps
 
 `backend/` and `frontend/` are **independent** — each builds, runs, tests, and containerizes on

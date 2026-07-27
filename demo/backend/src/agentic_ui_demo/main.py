@@ -11,7 +11,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from . import __version__
 from .config import get_settings
 from .registry import load_manifest
-from .routers import approaches, health
+from .routers import approaches, chat, health
 
 
 @asynccontextmanager
@@ -41,6 +41,7 @@ def create_app() -> FastAPI:
 
     app.include_router(health.router, prefix="/api")
     app.include_router(approaches.router, prefix="/api")
+    app.include_router(chat.router, prefix="/api")
 
     @app.get("/", include_in_schema=False)
     def root() -> dict[str, str]:

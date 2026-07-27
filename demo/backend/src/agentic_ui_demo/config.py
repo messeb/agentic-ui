@@ -5,6 +5,7 @@ from __future__ import annotations
 from functools import lru_cache
 from pathlib import Path
 
+from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 # The manifest is vendored inside the package so the backend is standalone.
@@ -31,6 +32,12 @@ class Settings(BaseSettings):
         "http://localhost:3000",
         "http://127.0.0.1:3000",
     ]
+
+    # --- Approach 1: Conversational chatbot (OpenAI) ---
+    # Read from the GLOBAL `OPENAI_API_KEY` env var (no DEMO_ prefix), so the key
+    # is never exposed to the frontend — the backend proxies all model calls.
+    openai_api_key: str | None = Field(default=None, validation_alias="OPENAI_API_KEY")
+    openai_model: str = "gpt-4o-mini"
 
 
 @lru_cache

@@ -14,7 +14,7 @@
       "whatYouNeed": ["LLM API", "proxy backend (hide key)", "SSE transport", "Markdown renderer"],
       "agenticLevel": 1,
       "maturity": "proven",
-      "status": "not-implemented"
+      "status": "implemented"
     },
     {
       "id": "tool-calling",

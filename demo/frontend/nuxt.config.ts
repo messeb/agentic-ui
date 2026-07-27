@@ -7,6 +7,9 @@ export default defineNuxtConfig({
 
   modules: ['@nuxtjs/tailwindcss', '@nuxt/eslint'],
 
+  // Code-highlighting theme for streamed Markdown (approach #1).
+  css: ['highlight.js/styles/github-dark.css'],
+
   // Vendored manifest (kept in sync with demo/shared/approaches.json via `make sync-manifest`).
   alias: {
     '@shared': fileURLToPath(new URL('./shared', import.meta.url)),

@@ -5,12 +5,20 @@
   >
     <div class="mb-2 flex items-center justify-between">
       <span class="text-xs font-mono text-slate-400">#{{ approach.number }}</span>
-      <span
-        class="rounded-full px-2 py-0.5 text-xs font-medium"
-        :class="maturityClass(approach.maturity)"
-      >
-        {{ maturityLabel(approach.maturity) }}
-      </span>
+      <div class="flex items-center gap-1.5">
+        <span
+          v-if="approach.status === 'implemented'"
+          class="rounded-full bg-emerald-100 px-2 py-0.5 text-xs font-medium text-emerald-800"
+        >
+          ● Live
+        </span>
+        <span
+          class="rounded-full px-2 py-0.5 text-xs font-medium"
+          :class="maturityClass(approach.maturity)"
+        >
+          {{ maturityLabel(approach.maturity) }}
+        </span>
+      </div>
     </div>
     <h3 class="font-semibold text-slate-900 group-hover:text-ink">{{ approach.title }}</h3>
     <p class="mt-1 text-sm text-slate-600">{{ approach.tagline }}</p>
