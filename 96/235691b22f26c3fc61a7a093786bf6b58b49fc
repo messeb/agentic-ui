@@ -1,0 +1,85 @@
+demo/frontend/components/ChatPanel.vue
+  s_8726adc094ddac::t_bec64be9afc487 1-91
+demo/backend/src/agentic_ui_demo/routers/chat.py
+  s_8726adc094ddac::t_962d626ce9dff4 47
+  s_8726adc094ddac::t_ac7e7b470dffe2 1-46,48-77
+demo/frontend/pages/approaches/conversational-chatbot.vue
+  s_8726adc094ddac::t_299fed00da31a2 1-50
+demo/backend/pyproject.toml
+  s_8726adc094ddac::t_aa811522c0caa0 12
+demo/backend/tests/test_chat.py
+  s_8726adc094ddac::t_836d207fd8440e 1-9,12-40,42-49
+  s_8726adc094ddac::t_962d626ce9dff4 10-11,41
+demo/frontend/components/ApproachCard.vue
+  s_8726adc094ddac::t_438e277ff48ac2 8-21
+demo/backend/src/agentic_ui_demo/config.py
+  s_8726adc094ddac::t_6bcfb40a5105bc 8
+  s_8726adc094ddac::t_e5f41f6b291887 36-41
+demo/frontend/package.json
+  s_8726adc094ddac::t_d20878c6773eda 18-19
+  s_8726adc094ddac::t_523b15f7816e06 27
+demo/shared/approaches.json
+  s_8726adc094ddac::t_ac071789615600 17
+demo/frontend/shared/approaches.json
+  s_8726adc094ddac::t_047a67512b5204 17
+demo/frontend/composables/useChat.ts
+  s_8726adc094ddac::t_19e5d6b75bde37 1-78
+demo/frontend/composables/useAutoScroll.ts
+  s_8726adc094ddac::t_cfc204524276c3 1-24
+demo/frontend/utils/markdown.ts
+  s_8726adc094ddac::t_ac2903076aa4d4 1-25
+demo/frontend/nuxt.config.ts
+  s_8726adc094ddac::t_e5ecfa35f60bb3 10-12
+demo/frontend/types/chat.ts
+  s_8726adc094ddac::t_303fce4d0f655e 1-6
+demo/.env.example
+  s_8726adc094ddac::t_2fc85486e461bb 16,18-22
+demo/backend/src/agentic_ui_demo/main.py
+  s_8726adc094ddac::t_16696284ae6814 14
+  s_8726adc094ddac::t_08d59021011309 44
+demo/backend/tests/test_approaches.py
+  s_8726adc094ddac::t_3a14866ad5abee 83
+  s_8726adc094ddac::t_d00f961840d24b 68-78
+  s_8726adc094ddac::t_cd458bcafc7b3a 53-56,60-67,79-82
+README.md
+  s_8726adc094ddac::t_c8fa2113effe39 3,5-6,9-24,26-28,31-45,47-50
+  s_8726adc094ddac::t_a46a5cd0f68f88 29-30
+  s_8726adc094ddac::t_26ddb3bb2893cf 7-8
+  s_8726adc094ddac::t_38387efb1d3f9c 46
+  s_8726adc094ddac::t_5d6095214ea5e6 51-52
+  s_8726adc094ddac::t_bf3b5401825370 53
+  s_8726adc094ddac::t_900d1ce26c2c00 4,25
+demo/frontend/components/ChatMessage.vue
+  s_8726adc094ddac::t_87201d16e1c1a9 8
+  s_8726adc094ddac::t_f012dea3031d3f 1-7,10-36
+  s_8726adc094ddac::t_50b2df86e8c56c 9
+demo/backend/src/agentic_ui_demo/data/approaches.json
+  s_8726adc094ddac::t_047a67512b5204 17
+demo/README.md
+  s_8726adc094ddac::t_06555768f44d50 9-23
+demo/backend/uv.lock
+  s_8726adc094ddac::t_bf914c50e26b85 11,28,172-180,288-374,616-624,638-649
+demo/frontend/pnpm-lock.yaml
+  s_8726adc094ddac::t_e4b4bd6299dd63 11-16,33-35,1463-1471,2865-2868,3177-3179,3251-3254,3265-3267,3909-3912,4409-4411,6373-6381,7875-7876,8195-8198,8296-8304,8311-8312,9163-9164,9713-9714
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.16",
+  "base_commit_sha": "96235691b22f26c3fc61a7a093786bf6b58b49fc",
+  "prompts": {},
+  "humans": {
+    "h_a51360f058d7fc": {
+      "author": "Sebastian Messingfeld <sebastian@messeb.com>"
+    }
+  },
+  "sessions": {
+    "s_8726adc094ddac": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "54e9d9c9-ef87-4961-bf01-a61332105a3c",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Sebastian Messingfeld <sebastian@messeb.com>"
+    }
+  }
+}
