@@ -1,0 +1,69 @@
+demo/frontend/components/ToolCallCard.vue
+  s_8726adc094ddac::t_776e678746d618 1-47
+demo/backend/src/agentic_ui_demo/data/approaches.json
+  s_8726adc094ddac::t_4360b85123e95c 30
+demo/shared/approaches.json
+  s_8726adc094ddac::t_32ab55588d2807 30
+demo/frontend/types/tools.ts
+  s_8726adc094ddac::t_7f1a76160d6f84 1-44
+demo/README.md
+  s_8726adc094ddac::t_3364e3def4bb62 9,11-16,21,24-26
+demo/backend/src/agentic_ui_demo/tools/flights.py
+  s_8726adc094ddac::t_bb01f78f45056e 17-56,110-114,163-170,196-199
+  s_8726adc094ddac::t_67346fbb392965 1-16,57-109,115-158,160-162,171-195,200-233
+  s_8726adc094ddac::t_c65f53d9f06a4c 159
+README.md
+  s_8726adc094ddac::t_ea7b5174728406 52
+  s_8726adc094ddac::t_bf3b5401825370 65
+  s_8726adc094ddac::t_448c011c77afc1 53
+  s_8726adc094ddac::t_c8fa2113effe39 29-30,48-51,54-55
+  s_8726adc094ddac::t_a4f2c42cebb52b 56
+demo/frontend/nuxt.config.ts
+  s_8726adc094ddac::t_4a0780692d2c84 10-13
+demo/frontend/components/ToolChatPanel.vue
+  s_8726adc094ddac::t_8c64152f43b105 1-74,88-133
+  s_8726adc094ddac::t_791bb389c41617 75-87
+demo/frontend/components/ChatPanel.vue
+  s_8726adc094ddac::t_7b9f3c5f075818 48-60
+demo/backend/src/agentic_ui_demo/tools/__init__.py
+  s_8726adc094ddac::t_50ab0288378f2b 1-5
+demo/backend/src/agentic_ui_demo/main.py
+  s_8726adc094ddac::t_a4e9d0dfbed9e2 22
+  s_8726adc094ddac::t_e16201f2078943 47
+  s_8726adc094ddac::t_b62c24e29bbb70 14-15
+demo/backend/src/agentic_ui_demo/routers/tools.py
+  s_8726adc094ddac::t_85d594295dcbc1 1-223
+demo/frontend/composables/useToolChat.ts
+  s_8726adc094ddac::t_dcb94dfc726dc4 1-137
+demo/backend/tests/test_tools.py
+  s_8726adc094ddac::t_25f250ae70de03 14-16
+  s_8726adc094ddac::t_2a251d48346462 1-13,17-105,109-128,132-234,238-240
+  s_8726adc094ddac::t_bb01f78f45056e 106-108,129-131,235-237
+demo/frontend/pages/approaches/tool-calling.vue
+  s_8726adc094ddac::t_2606863054d455 1-77
+demo/frontend/shared/approaches.json
+  s_8726adc094ddac::t_4360b85123e95c 30
+demo/backend/tests/test_approaches.py
+  s_8726adc094ddac::t_c40e9db1d68be3 55
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.16",
+  "base_commit_sha": "25e73c3895565bdb933da0dffb2aeabc657e5429",
+  "prompts": {},
+  "humans": {
+    "h_a51360f058d7fc": {
+      "author": "Sebastian Messingfeld <sebastian@messeb.com>"
+    }
+  },
+  "sessions": {
+    "s_8726adc094ddac": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "54e9d9c9-ef87-4961-bf01-a61332105a3c",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Sebastian Messingfeld <sebastian@messeb.com>"
+    }
+  }
+}
