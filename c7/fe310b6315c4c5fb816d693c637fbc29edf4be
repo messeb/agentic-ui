@@ -1,0 +1,90 @@
+demo/frontend/shared/approaches.json
+  s_8726adc094ddac::t_a82c1c7042a3d2 56
+demo/frontend/pages/approaches/component-selection.vue
+  s_8726adc094ddac::t_573a529f73c8de 15
+demo/frontend/pages/approaches/sandboxed-code.vue
+  s_8726adc094ddac::t_af304639caeaf8 61
+  s_8726adc094ddac::t_6fc8c313e20e3e 71,73-74
+  s_8726adc094ddac::t_7dc132f987834c 1-14,16-52,54-55,57-60,62-70,72,75-106,111-125
+  s_8726adc094ddac::t_77a213abcc2cae 107-110
+  s_8726adc094ddac::t_b25238bb4a073b 126-141
+  s_8726adc094ddac::t_dff461c545d229 53,56
+  s_8726adc094ddac::t_16ea3d257f2b2e 15
+demo/backend/src/agentic_ui_demo/main.py
+  s_8726adc094ddac::t_92b15ecc76df74 14
+  s_8726adc094ddac::t_cb148445e04709 49
+demo/frontend/composables/useGenerativeUi.ts
+  s_8726adc094ddac::t_55917b5e749466 1-57
+demo/frontend/pages/approaches/conversational-chatbot.vue
+  s_8726adc094ddac::t_77e97e0f860914 15
+demo/backend/src/agentic_ui_demo/routers/generative.py
+  s_8726adc094ddac::t_a82c1c7042a3d2 31-110,184-188
+  s_8726adc094ddac::t_d12c3487f8bbc4 1-30,111-125,129,140-176,178-183,189-194
+  s_8726adc094ddac::t_a4388d8ad9957d 177
+  s_8726adc094ddac::t_eff752e525e688 126-128,130-139
+demo/frontend/components/SandboxRunner.vue
+  s_8726adc094ddac::t_79a55115cafc02 17-18,25,27,38,41,43-45,47-48,59,73,82-83,98,112,140-141,155,175,182
+  s_8726adc094ddac::t_a1cb20d232ff61 180-181,183-184,190
+  s_8726adc094ddac::t_b1ce6cd36c41b5 142
+  s_8726adc094ddac::t_68d67169fc6f1d 26
+  s_8726adc094ddac::t_94c986c72700b0 84
+  s_8726adc094ddac::t_c05c67ccf3aacc 159-160
+  s_8726adc094ddac::t_25b1ad51c14b10 1-16,19-24,28-37,39-40,42,46,49-58,74-81,85-93,95-97,99-111,113-139,143-154,156-158,161-174,176-179,185-189,191-193
+  s_8726adc094ddac::t_eb9123c8202d72 94
+  s_8726adc094ddac::t_7c93a95f58878a 60-72
+demo/backend/tests/test_approaches.py
+  s_8726adc094ddac::t_5531f2898e6a30 55
+demo/README.md
+  s_8726adc094ddac::t_5c6052e4c05c9d 11
+  s_8726adc094ddac::t_84670a51350d7f 18
+  s_8726adc094ddac::t_6f254bee2bd50b 30
+README.md
+  s_8726adc094ddac::t_d508eb29f39f67 118
+  s_8726adc094ddac::t_100c25f9cbf76f 98-99
+  s_8726adc094ddac::t_fa9efc7b049184 72,74-75
+  s_8726adc094ddac::t_579ff872df74fa 105
+  s_8726adc094ddac::t_900d1ce26c2c00 95,102,108-109
+  s_8726adc094ddac::t_e3616e4634ebd6 88-90
+  s_8726adc094ddac::t_14f307211f27c1 113
+  s_8726adc094ddac::t_268e53fbe5c127 115
+  s_8726adc094ddac::t_54c1e4b14f9f97 103-104,106-107
+  s_8726adc094ddac::t_c8fa2113effe39 32,68-71,91-94,96-97,100-101,110-112,114
+  s_8726adc094ddac::t_5d6095214ea5e6 87
+  s_8726adc094ddac::t_9b8ee9f1454553 73
+  s_8726adc094ddac::t_8eaed693d07b80 76
+demo/backend/tests/test_generative.py
+  s_8726adc094ddac::t_a82c1c7042a3d2 12-13
+  s_8726adc094ddac::t_f7679052055cb1 25
+  s_8726adc094ddac::t_218558198f520a 49-50
+  s_8726adc094ddac::t_63733e27157fa2 1-11,14-24,26-48,51-72
+demo/backend/src/agentic_ui_demo/data/approaches.json
+  s_8726adc094ddac::t_a82c1c7042a3d2 56
+demo/frontend/pages/approaches/tool-calling.vue
+  s_8726adc094ddac::t_15473ff9abe687 15
+demo/frontend/types/generative.ts
+  s_8726adc094ddac::t_48c2a0662ca89b 1-27,30-31,33-34
+  s_8726adc094ddac::t_bf75e9569d9f21 28-29,32
+demo/shared/approaches.json
+  s_8726adc094ddac::t_1e9bc6608fdfdc 56
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.16",
+  "base_commit_sha": "c7fe310b6315c4c5fb816d693c637fbc29edf4be",
+  "prompts": {},
+  "humans": {
+    "h_a51360f058d7fc": {
+      "author": "Sebastian Messingfeld <sebastian@messeb.com>"
+    }
+  },
+  "sessions": {
+    "s_8726adc094ddac": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "54e9d9c9-ef87-4961-bf01-a61332105a3c",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Sebastian Messingfeld <sebastian@messeb.com>"
+    }
+  }
+}
