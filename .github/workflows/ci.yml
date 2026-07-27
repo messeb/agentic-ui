@@ -1,0 +1,76 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  manifest:
+    name: Manifest in sync
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: demo
+    steps:
+      - uses: actions/checkout@v4
+      - run: make check-manifest
+
+  backend:
+    name: Backend (uv · ruff · pytest)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: demo/backend
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+      - run: uv sync
+      - name: Lint
+        run: uv run ruff check .
+      - name: Format check
+        run: uv run ruff format --check .
+      - name: Test
+        run: uv run pytest --cov
+
+  frontend:
+    name: Frontend (pnpm · eslint · typecheck · build)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: demo/frontend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: demo/frontend/pnpm-lock.yaml
+      - run: pnpm install --frozen-lockfile
+      - name: Lint
+        run: pnpm run lint
+      - name: Type-check
+        run: pnpm run typecheck
+      - name: Build
+        run: pnpm run build
+
+  docker:
+    name: Docker images build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build backend image
+        run: docker build -t agentic-ui-demo-backend demo/backend
+      - name: Build frontend image
+        run: docker build -t agentic-ui-demo-frontend demo/frontend

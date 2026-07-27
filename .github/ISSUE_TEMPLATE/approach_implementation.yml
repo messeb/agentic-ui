@@ -1,0 +1,36 @@
+name: Implement an approach
+description: Track implementing one of the 8 Agentic UI approaches
+title: "[approach] "
+labels: [enhancement, approach]
+body:
+  - type: dropdown
+    id: approach
+    attributes:
+      label: Which approach?
+      options:
+        - "1 · conversational-chatbot"
+        - "2 · tool-calling"
+        - "3 · component-selection"
+        - "4 · sandboxed-code"
+        - "5 · server-streamed-ui"
+        - "6 · intent-adaptive"
+        - "7 · agentic-frontend"
+        - "8 · protocol-decoupled"
+    validations:
+      required: true
+  - type: textarea
+    id: plan
+    attributes:
+      label: Implementation plan
+      description: Backend handler, frontend page, model/provider, and how you'll test it.
+    validations:
+      required: true
+  - type: checkboxes
+    id: scope
+    attributes:
+      label: Scope
+      options:
+        - label: Backend `run_demo` handler
+        - label: Frontend detail page
+        - label: Tests
+        - label: Manifest `status` updated

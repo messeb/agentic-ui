@@ -1,0 +1,12 @@
+# pnpm 11 reads settings from here (the package.json "pnpm" field is no longer read).
+# These deps ship native build scripts (esbuild binary, etc.). Both keys are set so the
+# allowlist is honored across pnpm versions — without them, `pnpm install` blocks the
+# builds and the Nuxt/Vite build fails.
+onlyBuiltDependencies:
+  - esbuild
+  - unrs-resolver
+  - '@parcel/watcher'
+allowBuilds:
+  esbuild: true
+  unrs-resolver: true
+  '@parcel/watcher': true
