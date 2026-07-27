@@ -11,7 +11,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from . import __version__
 from .config import get_settings
 from .registry import load_manifest
-from .routers import approaches, chat, components, health, tools
+from .routers import approaches, chat, components, generative, health, tools
 from .tools import reset_state
 
 
@@ -46,6 +46,7 @@ def create_app() -> FastAPI:
     app.include_router(chat.router, prefix="/api")
     app.include_router(tools.router, prefix="/api")
     app.include_router(components.router, prefix="/api")
+    app.include_router(generative.router, prefix="/api")
 
     @app.get("/", include_in_schema=False)
     def root() -> dict[str, str]:

@@ -53,7 +53,7 @@
       "whatYouNeed": ["sandboxed runtime", "function whitelist", "host<->sandbox postMessage bridge", "strict CSP"],
       "agenticLevel": 4,
       "maturity": "emerging",
-      "status": "not-implemented"
+      "status": "implemented"
     },
     {
       "id": "server-streamed-ui",

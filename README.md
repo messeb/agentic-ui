@@ -29,6 +29,7 @@ The list runs from least to most agentic. The higher entries let the AI talk; th
 | 1 | **Conversational chatbot / sidebar** | User text | Streamed text (Markdown) | ★☆☆☆☆ |
 | 2 | **Function / Tool Calling** | User text + tool schemas | Structured function call(s) → executed | ★★☆☆☆ |
 | 3 | **Component selection from a catalog** | User text + component catalog | JSON choosing component(s) + their data | ★★★☆☆ |
+| 4 | **Generative UI via sandboxed code** | User request + runtime function list | Generated code (run in a sandbox) | ★★★★☆ |
 **They stack, they aren't exclusive.** Approaches build on each other: #3–#5 and #7 all rely on the tool/function-calling mechanism of #2, a chat surface (#1) can render selected components (#3), and #8 is a transport layer that can carry any of the others. Read the list as capabilities to combine, not options to choose between.
 
 ---
@@ -64,6 +65,15 @@ Each card follows the same shape: **Input → Output → How it works → What y
 - **Best for:** Rich, interactive answers — cards, forms, charts, product tiles — instead of plain prose.
 - **Trade-offs:** ➕ Interactive and on-brand; components stay hand-built and testable in isolation. ➖ Limited to a fixed catalog; input inference is unreliable on cheap models.
 
+### 4. Generative UI via sandboxed code
+
+- **Input:** A user request plus a list of **runtime functions** the generated code may call (each a data source or a sink, with described argument/return schemas).
+- **Output:** **Generated code** (typically JavaScript) plus a status and a user-facing message, returned as a structured object.
+- **How it works:** Because models compute unreliably but *describe* computation well, the model emits code (or full React/HTML/JS) rather than doing the math. It runs in an **isolated runtime with no access to the app** — an iframe sandbox, WebContainer, or cloud VM (E2B, ~400–600ms cold start) — calling only whitelisted functions (e.g. `loadFlights`, `generateChart`). Products: **v0** (React + Tailwind + shadcn/ui), **Claude Artifacts / MCP Apps** (server HTML in a sandboxed iframe, `postMessage` back to host).
+- **What you need:** A sandboxed runtime, a whitelist of callable functions with schemas plus a **host↔sandbox `postMessage` bridge** so sandboxed code can invoke them, a build/transpile step (JSX/TS → runnable), and a **strict security contract** — CSP, `allow-scripts` *without* `allow-same-origin`, no top-navigation; treat all generated code as an active attack vector. Guardrail prompting ("never use external resources", "always return via the runtime").
+- **Best for:** No/low-code builders, rapid prototyping, and open-ended charts no fixed component covers.
+- **Trade-offs:** ➕ Maximum flexibility — genuinely novel UI for unanticipated problems. ➖ Highest latency (generate + build/execute) and largest security surface; non-deterministic; hardest to test.
+
 
 ## Engineering comparison
 
@@ -74,9 +84,38 @@ Qualitative ratings to weigh the operational cost of each approach. **Lower is c
 | 1 | Conversational chatbot | Proven | Low | Low | Low | Med | High | Low | Low |
 | 2 | Function / Tool Calling | Proven | Med | Med | Med | Low | Med | Med | Low |
 | 3 | Component selection | Established | Med | Med | Med | Med | High | Low | Med |
+| 4 | Sandboxed generated code | Emerging | High | Med | Med | Low | Low | **High** | Med |
+> **Maturity** signals build risk: *Proven* = widely in production; *Established* = solid tooling, growing adoption; *Emerging* = promising but young, expect churn; *Paused* = upstream has deprioritized it (RSC); *Least mature* = active research, thin production track record. **Determinism** = *output-UI* determinism ("High" is good): tool calling can be schema-valid yet still pick different tools/args, so it rates Low. **Lock-in, runtime cost, and security** columns are author synthesis (not in the source) — treat as directional. Row 8 inherits the runtime characteristics of whichever approach it wraps.
+
+**Build vs. buy & team readiness.** Most approaches are buy-first — adopt CopilotKit / Vercel AI SDK / an AG-UI SDK rather than hand-rolling the loop and protocol. Skill demands differ sharply: #4 needs security engineering (sandboxing), #5 deep Next.js/RSC, #6 ML/data engineering, #7 disciplined prompt/state engineering. Staff to the approach, not to the demo.
+
+## Cross-cutting concerns
+
+These apply to every approach beyond a plain chatbot and should be designed in from the start:
+
+- **Transparency** — show what the agent did and why (surface tool calls in plain language, not raw function names).
+- **Reversibility & control** — undo, human confirmation for consequential actions, and a kill switch; keep humans accountable for outcomes.
+- **Governance** — define what the agent may do autonomously vs. what needs approval; log model/prompt/tool versions, decisions, and cost budgets for audit; protocols like MCP Apps force explicit capability declaration (`ui.components`, `ui.hooks`).
+- **Security** — treat model output and any injected content as untrusted: gate tool execution behind a permission layer, sandbox generated code, and defend against **prompt injection** (untrusted text or app state steering the model). Human-in-the-loop (HITL) approval before consequential side effects.
+- **Accessibility** — dynamic, AI-driven changes are silent to assistive tech unless announced via `aria-live`; this is a hard requirement, not a nicety.
+- **Cost & latency** — token generation costs more than rendering markup and adds delay; mitigate with cheap-model proxies, streaming/optimistic UI, and prompt caching.
+
+## Production signals & 2026 outlook
+
+- **Proven in production:** tool calling + component rendering. Shopify **Sidekick** (Claude) chains many tool calls per turn with an **LLM-as-judge** eval harness to fight "tool confusion" as the catalog grows. *Separately*, Shopify **Flow**'s fine-tuned Qwen3-32B tool-calling agent hit **2.2× faster / 68% cheaper** — a different product, not Sidekick.
+- **Standards still settling:** MCP (tools) + AG-UI (UI) + MCP Apps/MCP-UI (portable sandboxed UI) are converging into a layered stack, but competing UI specs (A2UI, Open-JSON-UI) mean short-term churn. Open questions: reusable non-re-rendering views, letting a model "fill a UI like a human," and whether HTML suffices for mobile-native.
+
+## Choosing an approach
+
+1. **Start at the top of the list and stop as soon as the value is delivered.** Move down only when the added capability justifies the extra cost, latency, non-determinism, and governance burden.
+2. **Keep deterministic flow in the frontend.** Hand the AI only decisions that genuinely require interpreting user intent; hard rules belong in code, not in a prompt.
+3. **Match the approach to the interaction.** Q&A → #1; live data/actions → #2; rich answers → #3; open-ended computation → #4; adaptive personalization → #6; full task automation → #7.
+4. **Treat protocols (#8) as orthogonal** — layer MCP/AG-UI/MCP-UI under any approach when independence from a specific backend or model matters.
+5. **Never put autonomy on high-stakes or latency-critical paths** (payments, medical, legal, keystroke-level editing) without explicit human confirmation.
+
 ## Demo workspace
 
-A runnable scaffold for all 8 approaches lives in [`demo/`](./demo/README.md) — Python/FastAPI (uv) + Vue/Nuxt, Docker, and CI. It wires the shared manifest → backend → frontend end-to-end, with every approach left as a clearly marked stub (the `/demo` endpoint returns `501` on purpose). It's a starting point to implement the approaches, not an implementation.
+A runnable scaffold for all 8 approaches lives in [`demo/`](./demo/README.md) — Python/FastAPI (uv) + Vue/Nuxt, Docker, and CI. It wires the shared manifest → backend → frontend end-to-end. **Approaches #1–#4 are fully implemented** as references — a streaming OpenAI chatbot (SSE), a tool-calling agent loop with a human-in-the-loop permission gate, Structured-Output component selection (combined with a real booking call), and generative UI where model-written JS runs in a locked-down sandboxed iframe; the other four are clearly marked stubs (their `/demo` endpoint returns `501` on purpose).
 
 ```bash
 cd demo && docker compose up --build   # frontend :3000 · backend :8000/docs

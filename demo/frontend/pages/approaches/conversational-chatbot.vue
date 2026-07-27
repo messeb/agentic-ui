@@ -12,7 +12,7 @@
     <p class="mt-1 text-slate-600">{{ approach?.tagline }}</p>
 
     <div class="mt-6 grid gap-6 lg:grid-cols-[1fr_320px]">
-      <ChatPanel />
+      <ChatPanel class="min-w-0" />
 
       <aside class="space-y-4 text-sm">
         <div class="rounded-lg border border-slate-200 bg-white p-4">
