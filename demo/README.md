@@ -6,20 +6,24 @@ and CI — but **no approach is implemented**. Each one is a clearly marked stub
 
 > Looking for the conceptual overview of the 8 approaches? See the [root README](../README.md).
 
-### ✅ Implemented: #1 Conversational chatbot
+### ✅ Implemented approaches (reference implementations)
 
-Approach #1 is fully built as a **reference implementation** — a streaming OpenAI chatbot
-(SSE) with incremental Markdown + code highlighting and smart auto-scroll. The other seven
-remain stubs. To run it:
+Two of the eight are fully built; the rest remain stubs.
+
+| # | Approach | Highlights | Route |
+|---|----------|-----------|-------|
+| 1 | Conversational chatbot | OpenAI streaming over SSE, incremental Markdown + code highlighting, smart auto-scroll | `/approaches/conversational-chatbot` |
+| 2 | Function / Tool Calling | Agent loop (reason→act→observe), tool dispatcher, **human-in-the-loop permission** for side-effect tools, transparent step-by-step timeline | `/approaches/tool-calling` |
 
 ```bash
 export OPENAI_API_KEY=sk-...     # global env; the backend proxies it, the frontend never sees it
 make dev-backend                 # terminal 1
-make dev-frontend                # terminal 2 → open http://localhost:3000/approaches/conversational-chatbot
+make dev-frontend                # terminal 2 → open http://localhost:3000
 ```
 
-Without a key the backend returns `503` and the chat panel shows a clear message. Key files:
-`backend/…/routers/chat.py`, `frontend/composables/useChat.ts`, `frontend/components/ChatPanel.vue`.
+Without a key the backends return `503` and the panels show a clear message. Key files:
+- #1 — `backend/…/routers/chat.py`, `frontend/composables/useChat.ts`, `frontend/components/ChatPanel.vue`
+- #2 — `backend/…/routers/tools.py`, `backend/…/tools/flights.py`, `frontend/composables/useToolChat.ts`, `frontend/components/ToolChatPanel.vue`
 
 ## Two standalone apps
 

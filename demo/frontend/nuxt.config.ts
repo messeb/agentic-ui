@@ -7,6 +7,10 @@ export default defineNuxtConfig({
 
   modules: ['@nuxtjs/tailwindcss', '@nuxt/eslint'],
 
+  // This demo doesn't use route rules / payload extraction; disabling the app manifest
+  // avoids the dev-server "#app-manifest" resolve error and keeps the build lean.
+  experimental: { appManifest: false },
+
   // Code-highlighting theme for streamed Markdown (approach #1).
   css: ['highlight.js/styles/github-dark.css'],
 

@@ -11,13 +11,15 @@ from fastapi.middleware.cors import CORSMiddleware
 from . import __version__
 from .config import get_settings
 from .registry import load_manifest
-from .routers import approaches, chat, health
+from .routers import approaches, chat, health, tools
+from .tools import reset_state
 
 
 @asynccontextmanager
 async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
     # Fail fast if the shared manifest is missing or malformed.
     load_manifest()
+    reset_state()  # seed the demo flight dataset (approach #2)
     yield
 
 
@@ -42,6 +44,7 @@ def create_app() -> FastAPI:
     app.include_router(health.router, prefix="/api")
     app.include_router(approaches.router, prefix="/api")
     app.include_router(chat.router, prefix="/api")
+    app.include_router(tools.router, prefix="/api")
 
     @app.get("/", include_in_schema=False)
     def root() -> dict[str, str]:

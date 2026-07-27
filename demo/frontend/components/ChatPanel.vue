@@ -45,6 +45,19 @@
       </p>
     </div>
 
+    <!-- predefined prompts, shown after every exchange -->
+    <div v-if="messages.length" class="flex flex-wrap gap-2 border-t border-slate-200 bg-white px-3 pt-2">
+      <button
+        v-for="s in suggestions"
+        :key="s"
+        class="rounded-full border border-slate-300 px-2.5 py-1 text-xs text-slate-600 hover:border-slate-500 disabled:opacity-40"
+        :disabled="streaming"
+        @click="submit(s)"
+      >
+        {{ s }}
+      </button>
+    </div>
+
     <!-- composer -->
     <form class="flex gap-2 border-t border-slate-200 bg-white p-3" @submit.prevent="submit(input)">
       <input

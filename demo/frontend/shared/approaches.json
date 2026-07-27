@@ -27,7 +27,7 @@
       "whatYouNeed": ["tool schemas", "dispatcher", "agent-loop runner", "permission layer", "backend"],
       "agenticLevel": 2,
       "maturity": "proven",
-      "status": "not-implemented"
+      "status": "implemented"
     },
     {
       "id": "component-selection",
