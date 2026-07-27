@@ -1,0 +1,91 @@
+demo/backend/src/agentic_ui_demo/tools/flights.py
+  s_8726adc094ddac::t_6508d01200a03c 62,67,71
+  s_8726adc094ddac::t_c07c2d268801b5 81-85
+  s_8726adc094ddac::t_49f4a574ef3f21 86-103
+demo/frontend/components/CatalogRenderer.vue
+  s_8726adc094ddac::t_4b1f2b8e809c2a 30-35,44
+  s_8726adc094ddac::t_cc9316f7650871 16-29,43,45-46,49,55-56
+  s_8726adc094ddac::t_88867d1dcc586e 1-15,36-42,47-48,50-54,57-58
+demo/frontend/components/catalog/BookingForm.vue
+  s_8726adc094ddac::t_21975d98dd8a87 1-56
+demo/backend/src/agentic_ui_demo/main.py
+  s_8726adc094ddac::t_1855274772d4ac 14
+  s_8726adc094ddac::t_7c64f85c70b01d 48
+demo/frontend/components/catalog/BookingConfirmation.vue
+  s_8726adc094ddac::t_84f7eb82c058f5 1-32
+demo/backend/src/agentic_ui_demo/data/approaches.json
+  s_8726adc094ddac::t_e923d5ee49d6e1 43
+demo/frontend/components/catalog/FlightStatus.vue
+  s_8726adc094ddac::t_58b552a89fa602 1-49
+demo/backend/tests/test_components.py
+  s_8726adc094ddac::t_b30cb80db7aa6d 61-64
+  s_8726adc094ddac::t_fc16f685871175 1-11,15-17,19-20,29-31,70-153,158
+  s_8726adc094ddac::t_acb14db7b6ae33 12,18,21-28,32-60,65-69
+  s_8726adc094ddac::t_39959982e8ea80 13-14,154-157
+demo/frontend/components/ComponentChatPanel.vue
+  s_8726adc094ddac::t_efd1e6a6db56b0 1-52,55-95,97,99-107,109-111,115-116,131-147
+  s_8726adc094ddac::t_df8f353aba1db8 53-54
+  s_8726adc094ddac::t_533b2e409c3d3a 117-123
+  s_8726adc094ddac::t_f4fb2db5411fa4 96,98,108,112-114,124-130
+demo/backend/src/agentic_ui_demo/routers/components.py
+  s_8726adc094ddac::t_68380b4b04325b 98
+  s_8726adc094ddac::t_e15ad88a28a48c 103
+  s_8726adc094ddac::t_cd43ffdb755a28 92,175-177
+  s_8726adc094ddac::t_e929780a92be07 1-14,27,90-91,94,110-114,134-150,152,155-168,170-174,178,180,201,218-249
+  s_8726adc094ddac::t_af2aec4ef9a25e 15-26,28-89,93,95-97,99-102,104-109,115-133,151,153-154,169,179,181-200,202-217
+demo/frontend/components/catalog/AncillaryOffer.vue
+  s_8726adc094ddac::t_0841b17837f77a 1-50
+demo/frontend/composables/useComponentChat.ts
+  s_8726adc094ddac::t_739f8d3a6c70f2 1,3-26,28-29,56-85,99-105,107-109,111
+  s_8726adc094ddac::t_2ea4178697434b 27,30-55
+  s_8726adc094ddac::t_779cbe1d162f14 2
+  s_8726adc094ddac::t_8954ea7dbabbb7 86-98,106,110
+demo/README.md
+  s_8726adc094ddac::t_74c63e77c761ab 17
+  s_8726adc094ddac::t_53a22a85b43a2b 28
+  s_8726adc094ddac::t_1671478014158a 11
+demo/frontend/components/catalog/FlightResults.vue
+  s_8726adc094ddac::t_af85043f0887cc 1-38
+demo/frontend/components/catalog/BookingRequest.vue
+  s_8726adc094ddac::t_1694b9e6234def 1-45
+demo/frontend/types/catalog.ts
+  s_8726adc094ddac::t_2f49bb846f42b7 41-64,73-75
+  s_8726adc094ddac::t_ab1a84a73caca7 65-68,76
+  s_8726adc094ddac::t_2020a611da1bb1 1-40,69-72,77-87
+README.md
+  s_8726adc094ddac::t_a271a134a4777a 63
+  s_8726adc094ddac::t_c8fa2113effe39 31,58-62,64-65
+  s_8726adc094ddac::t_5d6095214ea5e6 76
+  s_8726adc094ddac::t_69645ade7e5273 66
+demo/shared/approaches.json
+  s_8726adc094ddac::t_47f94e4d88e7c8 43
+demo/frontend/components/catalog/CartSummary.vue
+  s_8726adc094ddac::t_5709212bc0a7ab 1-23
+demo/backend/tests/test_approaches.py
+  s_8726adc094ddac::t_75285a3ab48bd7 55
+demo/frontend/pages/approaches/component-selection.vue
+  s_8726adc094ddac::t_b580d24d1219f6 1-69
+demo/frontend/shared/approaches.json
+  s_8726adc094ddac::t_e923d5ee49d6e1 43
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.16",
+  "base_commit_sha": "04dd04fe65a75122d1332c2decda7e6889cc24da",
+  "prompts": {},
+  "humans": {
+    "h_a51360f058d7fc": {
+      "author": "Sebastian Messingfeld <sebastian@messeb.com>"
+    }
+  },
+  "sessions": {
+    "s_8726adc094ddac": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "54e9d9c9-ef87-4961-bf01-a61332105a3c",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Sebastian Messingfeld <sebastian@messeb.com>"
+    }
+  }
+}
