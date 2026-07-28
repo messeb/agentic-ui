@@ -92,7 +92,7 @@
       "whatYouNeed": ["flat UI tool schema", "generic dispatcher", "reactive state", "HITL gates", "aria-live"],
       "agenticLevel": 5,
       "maturity": "emerging",
-      "status": "not-implemented"
+      "status": "implemented"
     },
     {
       "id": "protocol-decoupled",
