@@ -1,0 +1,59 @@
+demo/frontend/components/IntentPanel.vue
+  s_8726adc094ddac::t_74fc243967c339 1-54
+demo/frontend/components/AdaptiveFlightCard.vue
+  s_8726adc094ddac::t_58508eb929dfa9 1-71
+README.md
+  s_8726adc094ddac::t_84067883e9cb70 173
+demo/backend/src/agentic_ui_demo/main.py
+  s_8726adc094ddac::t_9474cf27508ca1 14
+  s_8726adc094ddac::t_72a85292294991 51
+demo/frontend/types/adaptive.ts
+  s_8726adc094ddac::t_6581e5dbd57f5c 1-44
+demo/frontend/shared/approaches.json
+  s_8726adc094ddac::t_e8c6787ed83941 82
+demo/frontend/components/AdaptiveWidget.vue
+  s_8726adc094ddac::t_90a721eeac4f0a 1-76
+demo/shared/approaches.json
+  s_8726adc094ddac::t_b46cb91380d244 82
+demo/backend/tests/test_adaptive.py
+  s_8726adc094ddac::t_e8c6787ed83941 9-10,71-73
+  s_8726adc094ddac::t_c7c5b77388c2a9 25,34,55
+  s_8726adc094ddac::t_c183745b7d9dd8 1-8,11-24,26-33,35-54,56-70,74-76
+demo/README.md
+  s_8726adc094ddac::t_1e11e78ade4b10 34
+  s_8726adc094ddac::t_ed920b7597aed1 11
+  s_8726adc094ddac::t_4cbdee6055c323 20
+demo/backend/src/agentic_ui_demo/data/approaches.json
+  s_8726adc094ddac::t_e8c6787ed83941 82
+demo/backend/tests/test_approaches.py
+  s_8726adc094ddac::t_d2a830772174c1 55
+demo/backend/src/agentic_ui_demo/routers/adaptive.py
+  s_8726adc094ddac::t_e8c6787ed83941 23-132,158-169
+  s_8726adc094ddac::t_d76c56eca1a987 211-216,220-225,227,239-247
+  s_8726adc094ddac::t_d77ab193e1c8bb 1-22,133-157,170-210,217-219,226,228-238,248-274
+demo/frontend/composables/useAdaptive.ts
+  s_8726adc094ddac::t_f78e21a07a90df 1-79
+demo/frontend/pages/approaches/intent-adaptive.vue
+  s_8726adc094ddac::t_bbd57616428a23 1-103
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.16",
+  "base_commit_sha": "e62162120eb1a54c0c5b2eff113a345d362a98ca",
+  "prompts": {},
+  "humans": {
+    "h_a51360f058d7fc": {
+      "author": "Sebastian Messingfeld <sebastian@messeb.com>"
+    }
+  },
+  "sessions": {
+    "s_8726adc094ddac": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "54e9d9c9-ef87-4961-bf01-a61332105a3c",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Sebastian Messingfeld <sebastian@messeb.com>"
+    }
+  }
+}
