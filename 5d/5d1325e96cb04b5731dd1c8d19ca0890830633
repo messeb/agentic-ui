@@ -1,0 +1,60 @@
+demo/README.md
+  s_8726adc094ddac::t_07ef38bab10fe5 11
+  s_8726adc094ddac::t_f6e9a79d771f01 21
+  s_8726adc094ddac::t_9d912299b363ca 36
+demo/backend/src/agentic_ui_demo/main.py
+  s_8726adc094ddac::t_4f4df2c95a0ab5 14
+  s_8726adc094ddac::t_2ee5539d132435 52
+demo/frontend/components/AgentSearchForm.vue
+  s_8726adc094ddac::t_5d464b15d82ec1 1-49
+demo/backend/src/agentic_ui_demo/data/approaches.json
+  s_8726adc094ddac::t_b58d86b9ae06be 95
+README.md
+  s_8726adc094ddac::t_1ad08a1ae25d62 173
+demo/frontend/types/agent.ts
+  s_8726adc094ddac::t_d05f2f55d5f7fa 1-47
+demo/shared/approaches.json
+  s_8726adc094ddac::t_a5f1e0993f314a 95
+demo/frontend/components/AgentResults.vue
+  s_8726adc094ddac::t_d9a8eee51a8ac7 1-74
+demo/backend/tests/test_approaches.py
+  s_8726adc094ddac::t_002d7efa001d84 55
+demo/frontend/components/AgentActionLog.vue
+  s_8726adc094ddac::t_f5247304f460a6 1-30
+demo/frontend/pages/approaches/agentic-frontend.vue
+  s_8726adc094ddac::t_746de52f844594 1-149
+demo/backend/tests/test_agent.py
+  s_8726adc094ddac::t_b58d86b9ae06be 12-13
+  s_8726adc094ddac::t_1c7cbf60a646ba 1-11,14-85
+demo/frontend/composables/useAgentApp.ts
+  s_8726adc094ddac::t_84a6b093cfcecb 1-215
+demo/backend/src/agentic_ui_demo/routers/agent.py
+  s_8726adc094ddac::t_a95d85aa4b9e1a 1-28,109-118,122-141,146-151,154-244
+  s_8726adc094ddac::t_b58d86b9ae06be 29-108,119-121,142-145
+  s_8726adc094ddac::t_84fabb02b59d53 152-153
+demo/frontend/shared/approaches.json
+  s_8726adc094ddac::t_b58d86b9ae06be 95
+demo/frontend/components/AgentReview.vue
+  s_8726adc094ddac::t_aaba3f9ad27b18 1-32
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.16",
+  "base_commit_sha": "5d5d1325e96cb04b5731dd1c8d19ca0890830633",
+  "prompts": {},
+  "humans": {
+    "h_a51360f058d7fc": {
+      "author": "Sebastian Messingfeld <sebastian@messeb.com>"
+    }
+  },
+  "sessions": {
+    "s_8726adc094ddac": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "54e9d9c9-ef87-4961-bf01-a61332105a3c",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Sebastian Messingfeld <sebastian@messeb.com>"
+    }
+  }
+}
