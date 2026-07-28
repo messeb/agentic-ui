@@ -50,13 +50,9 @@ def test_get_unknown_approach_404(client: TestClient) -> None:
     assert resp.status_code == status.HTTP_404_NOT_FOUND
 
 
-def test_unimplemented_demo_endpoints_are_stubbed_501(client: TestClient) -> None:
+def test_all_approaches_implemented(client: TestClient) -> None:
     unimplemented = [a for a in list_approaches() if a.status == "not-implemented"]
-    assert len(unimplemented) == 1  # approaches #1-#7 are implemented
-    for approach in unimplemented:
-        resp = client.get(f"/api/approaches/{approach.id}/demo")
-        assert resp.status_code == status.HTTP_501_NOT_IMPLEMENTED
-        assert resp.json()["status"] == "not-implemented"
+    assert unimplemented == []  # all 8 approaches are implemented
 
 
 def test_conversational_chatbot_is_implemented(client: TestClient) -> None:

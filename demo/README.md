@@ -8,7 +8,7 @@ and CI — but **no approach is implemented**. Each one is a clearly marked stub
 
 ### ✅ Implemented approaches (reference implementations)
 
-Seven of the eight are fully built; the last remains a stub.
+**All eight approaches are fully built.**
 
 | # | Approach | Highlights | Route |
 |---|----------|-----------|-------|
@@ -19,6 +19,7 @@ Seven of the eight are fully built; the last remains a stub.
 | 5 | Server-streamed UI (RSC/v0) | The model picks a **server-side tool** that returns a component; the server **serializes** it to a node tree and **streams it node-by-node** over SSE; the client renders each node progressively via a whitelist of pre-written components (no code/sandbox). *Framework-native equivalent of RSC `streamUI` — which Vercel has paused* | `/approaches/server-streamed-ui` |
 | 6 | Intent-based adaptive UI | **No chat.** Implicit telemetry (hover dwell, clicks, sort taps) → a deterministic **inference layer** scores intent (price / time / urgency / explore) → the UI **re-ranks flights and emphasizes/hides widgets**. Transparent rationale shown to counter opacity; needs no API key | `/approaches/intent-adaptive` |
 | 7 | Agentic frontend ("UI as toolbox") | A **goal** drives the whole app: every UI mutation is a flat tool; a **generic dispatcher** applies each call as a **state patch**; the **stateless** backend rebuilds the prompt from live state each turn; filtering stays deterministic in the frontend; **`book` is HITL-gated**; every action gets visible highlight + **`aria-live`** | `/approaches/agentic-frontend` |
+| 8 | Protocol-decoupled (MCP · MCP-UI · AG-UI) | The UI is a **pure function of a typed AG-UI event stream** (lifecycle / text / tool-call / state). State syncs via **`STATE_SNAPSHOT` + `STATE_DELTA`** (RFC-6902 JSON Patch); a tool result can carry an **MCP-UI `ui://`** HTML resource rendered in a sandboxed iframe that `postMessage`s intents back. Includes a live event inspector | `/approaches/protocol-decoupled` |
 
 ```bash
 export OPENAI_API_KEY=sk-...     # global env; the backend proxies it, the frontend never sees it
@@ -34,6 +35,7 @@ Without a key the backends return `503` and the panels show a clear message. Key
 - #5 — `backend/…/routers/rsc.py`, `frontend/components/RscRenderer.vue` + `RscNode.vue` (progressive renderer), `frontend/composables/useRscStream.ts`
 - #6 — `backend/…/routers/adaptive.py` (scoring layer), `frontend/composables/useAdaptive.ts`, `frontend/components/IntentPanel.vue` + `AdaptiveFlightCard.vue` + `AdaptiveWidget.vue`
 - #7 — `backend/…/routers/agent.py` (stateless step), `frontend/composables/useAgentApp.ts` (store + dispatcher + loop), `frontend/components/Agent*.vue`
+- #8 — `backend/…/routers/protocol.py` (AG-UI event stream), `frontend/composables/useProtocol.ts` (client + JSON Patch), `frontend/components/McpUiFrame.vue` + `ProtocolInspector.vue`
 
 ## Two standalone apps
 

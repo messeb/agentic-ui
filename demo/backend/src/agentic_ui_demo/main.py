@@ -11,7 +11,18 @@ from fastapi.middleware.cors import CORSMiddleware
 from . import __version__
 from .config import get_settings
 from .registry import load_manifest
-from .routers import adaptive, agent, approaches, chat, components, generative, health, rsc, tools
+from .routers import (
+    adaptive,
+    agent,
+    approaches,
+    chat,
+    components,
+    generative,
+    health,
+    protocol,
+    rsc,
+    tools,
+)
 from .tools import reset_state
 
 
@@ -50,6 +61,7 @@ def create_app() -> FastAPI:
     app.include_router(rsc.router, prefix="/api")
     app.include_router(adaptive.router, prefix="/api")
     app.include_router(agent.router, prefix="/api")
+    app.include_router(protocol.router, prefix="/api")
 
     @app.get("/", include_in_schema=False)
     def root() -> dict[str, str]:
