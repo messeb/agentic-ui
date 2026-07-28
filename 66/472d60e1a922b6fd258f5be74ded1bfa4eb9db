@@ -1,0 +1,59 @@
+demo/frontend/shared/approaches.json
+  s_8726adc094ddac::t_017eea56063a39 108
+demo/backend/src/agentic_ui_demo/main.py
+  s_8726adc094ddac::t_e1eca5cd75b3c6 14-25
+  s_8726adc094ddac::t_00608b4b5817a8 64
+demo/backend/src/agentic_ui_demo/data/approaches.json
+  s_8726adc094ddac::t_017eea56063a39 108
+demo/frontend/composables/useProtocol.ts
+  s_8726adc094ddac::t_376523728a0002 1-13,15-134
+  s_8726adc094ddac::t_8a3ecd4e8527a2 14
+demo/README.md
+  s_8726adc094ddac::t_18896b19dcaaa0 22
+  s_8726adc094ddac::t_cedb3aee5e9038 38
+  s_8726adc094ddac::t_f8caa93bc416da 11
+demo/frontend/pages/approaches/protocol-decoupled.vue
+  s_8726adc094ddac::t_2f64008017075b 1-138
+demo/shared/approaches.json
+  s_8726adc094ddac::t_b35456bf13d1c2 108
+demo/backend/tests/test_approaches.py
+  s_8726adc094ddac::t_938193123229f2 53,55
+README.md
+  s_8726adc094ddac::t_bebcac7b25fc2c 173
+demo/backend/src/agentic_ui_demo/routers/protocol.py
+  s_8726adc094ddac::t_017eea56063a39 44-58,112-125,152-154,156-165,168-170,173-178,180-184,189-191,201-205
+  s_8726adc094ddac::t_5739e72997707e 1-38,40-43,59-111,126-151,155,166-167,171-172,179,185-188,192-200,206-247
+  s_8726adc094ddac::t_aa2ec478a67e9f 39
+demo/frontend/components/ProtocolInspector.vue
+  s_8726adc094ddac::t_a13b801b85e367 39-40
+  s_8726adc094ddac::t_2fbde3c406f28e 1-38,41-44
+demo/frontend/components/McpUiFrame.vue
+  s_8726adc094ddac::t_470502e895559d 1-21,23-37
+  s_8726adc094ddac::t_cbcab40b06cbbd 22
+demo/backend/tests/test_protocol.py
+  s_8726adc094ddac::t_017eea56063a39 12-13,66-74,88-96,106-114
+  s_8726adc094ddac::t_d277a93981998f 1-11,14-65,75-87,97-105,115-130
+demo/frontend/types/protocol.ts
+  s_8726adc094ddac::t_827e3abe4c5c30 1-29
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.16",
+  "base_commit_sha": "66472d60e1a922b6fd258f5be74ded1bfa4eb9db",
+  "prompts": {},
+  "humans": {
+    "h_a51360f058d7fc": {
+      "author": "Sebastian Messingfeld <sebastian@messeb.com>"
+    }
+  },
+  "sessions": {
+    "s_8726adc094ddac": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "54e9d9c9-ef87-4961-bf01-a61332105a3c",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Sebastian Messingfeld <sebastian@messeb.com>"
+    }
+  }
+}
