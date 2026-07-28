@@ -170,7 +170,7 @@ These apply to every approach beyond a plain chatbot and should be designed in f
 
 ## Demo workspace
 
-A runnable scaffold for all 8 approaches lives in [`demo/`](./demo/README.md) — Python/FastAPI (uv) + Vue/Nuxt, Docker, and CI. It wires the shared manifest → backend → frontend end-to-end. **Approaches #1–#5 are fully implemented** as references — a streaming OpenAI chatbot (SSE), a tool-calling agent loop with a human-in-the-loop permission gate, Structured-Output component selection (combined with a real booking call), generative UI where model-written JS runs in a locked-down sandboxed iframe, and server-streamed UI (a framework-native take on the RSC/`streamUI` pattern); the other three are clearly marked stubs (their `/demo` endpoint returns `501` on purpose).
+A runnable scaffold for all 8 approaches lives in [`demo/`](./demo/README.md) — Python/FastAPI (uv) + Vue/Nuxt, Docker, and CI. It wires the shared manifest → backend → frontend end-to-end. **Approaches #1–#6 are fully implemented** as references — a streaming OpenAI chatbot (SSE), a tool-calling agent loop with a human-in-the-loop permission gate, Structured-Output component selection (combined with a real booking call), generative UI where model-written JS runs in a locked-down sandboxed iframe, server-streamed UI (a framework-native take on the RSC/`streamUI` pattern), and an intent-based adaptive UI driven by implicit telemetry (no chat, no API key); the other two are clearly marked stubs (their `/demo` endpoint returns `501` on purpose).
 
 ```bash
 cd demo && docker compose up --build   # frontend :3000 · backend :8000/docs

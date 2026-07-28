@@ -79,7 +79,7 @@
       "whatYouNeed": ["telemetry pipeline", "inference/scoring service", "preference store", "layout variants"],
       "agenticLevel": 3,
       "maturity": "least-mature",
-      "status": "not-implemented"
+      "status": "implemented"
     },
     {
       "id": "agentic-frontend",

@@ -8,7 +8,7 @@ and CI — but **no approach is implemented**. Each one is a clearly marked stub
 
 ### ✅ Implemented approaches (reference implementations)
 
-Five of the eight are fully built; the rest remain stubs.
+Six of the eight are fully built; the rest remain stubs.
 
 | # | Approach | Highlights | Route |
 |---|----------|-----------|-------|
@@ -17,6 +17,7 @@ Five of the eight are fully built; the rest remain stubs.
 | 3 | Component selection | **Structured Output** picks components from a catalog (flight results, status, ancillary offers, booking request); a renderer instantiates hand-built Vue components. **Combined with a real booking call** (#2's shared flight state): select a flight → enter passenger → book; adding ancillaries are real backend calls folded into the booking total | `/approaches/component-selection` |
 | 4 | Generative UI (sandboxed code) | The model **generates JavaScript** (Structured Output) that renders **arbitrary UI** — table, chart, cards, whatever fits — directly into a **locked-down iframe** (`allow-scripts` without `allow-same-origin`, CSP `connect-src 'none'`, no external resources). Data comes only via a `postMessage`→`loadFlights` bridge; isolation makes free-form rendering safe. Backend never executes the code | `/approaches/sandboxed-code` |
 | 5 | Server-streamed UI (RSC/v0) | The model picks a **server-side tool** that returns a component; the server **serializes** it to a node tree and **streams it node-by-node** over SSE; the client renders each node progressively via a whitelist of pre-written components (no code/sandbox). *Framework-native equivalent of RSC `streamUI` — which Vercel has paused* | `/approaches/server-streamed-ui` |
+| 6 | Intent-based adaptive UI | **No chat.** Implicit telemetry (hover dwell, clicks, sort taps) → a deterministic **inference layer** scores intent (price / time / urgency / explore) → the UI **re-ranks flights and emphasizes/hides widgets**. Transparent rationale shown to counter opacity; needs no API key | `/approaches/intent-adaptive` |
 
 ```bash
 export OPENAI_API_KEY=sk-...     # global env; the backend proxies it, the frontend never sees it
@@ -30,6 +31,7 @@ Without a key the backends return `503` and the panels show a clear message. Key
 - #3 — `backend/…/routers/components.py`, `frontend/components/catalog/*.vue`, `frontend/components/CatalogRenderer.vue`, `frontend/composables/useComponentChat.ts`
 - #4 — `backend/…/routers/generative.py`, `frontend/components/SandboxRunner.vue` (the sandbox), `frontend/composables/useGenerativeUi.ts`
 - #5 — `backend/…/routers/rsc.py`, `frontend/components/RscRenderer.vue` + `RscNode.vue` (progressive renderer), `frontend/composables/useRscStream.ts`
+- #6 — `backend/…/routers/adaptive.py` (scoring layer), `frontend/composables/useAdaptive.ts`, `frontend/components/IntentPanel.vue` + `AdaptiveFlightCard.vue` + `AdaptiveWidget.vue`
 
 ## Two standalone apps
 
