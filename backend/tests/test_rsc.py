@@ -11,7 +11,6 @@ from types import SimpleNamespace
 
 from fastapi.testclient import TestClient
 
-import agentic_ui_demo.routers.rsc as rsc_module
 from agentic_ui_demo.config import get_settings
 from agentic_ui_demo.routers.rsc import (
     build_delays_overview,
@@ -87,8 +86,7 @@ def test_stream_emits_tool_then_nodes(client: TestClient, monkeypatch) -> None:
     monkeypatch.setenv("OPENAI_API_KEY", "test-key")
     get_settings.cache_clear()
     monkeypatch.setattr(
-        rsc_module,
-        "AsyncOpenAI",
+        "agentic_ui_demo.llm.AsyncOpenAI",
         _fake_openai(("render_flight_list", {"origin": "Graz", "destination": "Hamburg"})),
     )
     try:
@@ -109,8 +107,7 @@ def test_stream_composes_multiple_tools(client: TestClient, monkeypatch) -> None
     monkeypatch.setenv("OPENAI_API_KEY", "test-key")
     get_settings.cache_clear()
     monkeypatch.setattr(
-        rsc_module,
-        "AsyncOpenAI",
+        "agentic_ui_demo.llm.AsyncOpenAI",
         _fake_openai(
             ("render_summary", {}),
             ("render_flight_list", {"only_delayed": True}),

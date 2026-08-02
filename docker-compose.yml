@@ -1,51 +1,26 @@
-# Full-stack demo: FastAPI backend + Nuxt frontend + a bundled local LLM (Ollama).
-# One command runs everything — no hosted API key needed:
-#   docker compose up --build
-# First run pulls the model (qwen2.5:3b, ~1.9 GB, tool-calling capable).
-# Frontend: http://localhost:3000   Backend/docs: http://localhost:8000/docs
+# Full-stack demo: FastAPI backend + Nuxt frontend. The backend talks to a remote
+# chat-completions API (OpenAI or Azure OpenAI) — set the vars in your shell or a `.env`
+# file next to this compose:
+#
+#   OPENAI_API_KEY=sk-...  docker compose up --build
+#
+# Azure OpenAI: also set AZURE_OPENAI_ENDPOINT, OPENAI_API_VERSION, and DEMO_OPENAI_MODEL
+# (your deployment name).
+# Frontend http://localhost:3000 · Backend http://localhost:8000/docs
 services:
-  # Local, OpenAI-compatible LLM. Exposes /v1 on port 11434.
-  ollama:
-    image: ollama/ollama:latest
-    volumes:
-      - ollama-models:/root/.ollama
-    ports:
-      - "11434:11434"
-    healthcheck:
-      test: ["CMD", "ollama", "list"]
-      interval: 10s
-      timeout: 5s
-      retries: 15
-      start_period: 5s
-
-  # One-shot: pull the model into the ollama server on first start, then exit.
-  ollama-pull:
-    image: ollama/ollama:latest
-    depends_on:
-      ollama:
-        condition: service_healthy
-    environment:
-      OLLAMA_HOST: http://ollama:11434
-    entrypoint: ["ollama", "pull", "qwen2.5:3b"]
-    restart: "no"
-
   backend:
     build:
       context: ./backend
     image: agentic-ui-demo-backend
     environment:
-      DEMO_ENVIRONMENT: docker
-      DEMO_CORS_ORIGINS: '["http://localhost:3000","http://127.0.0.1:3000"]'
-      # Point the backend at the bundled local LLM. Any non-empty key works — Ollama ignores it.
-      OPENAI_API_KEY: ollama
-      OPENAI_BASE_URL: http://ollama:11434/v1
-      DEMO_OPENAI_MODEL: qwen2.5:3b
+      - DEMO_ENVIRONMENT=docker
+      - 'DEMO_CORS_ORIGINS=["http://localhost:3000","http://127.0.0.1:3000"]'
+      # Chat-API-agnostic: set these in your shell or a .env file. OPENAI_BASE_URL is optional.
+      - OPENAI_API_KEY
+      - OPENAI_MODEL
+      - OPENAI_BASE_URL
     ports:
       - "8000:8000"
-    depends_on:
-      # Wait until the model has been pulled so the first request succeeds.
-      ollama-pull:
-        condition: service_completed_successfully
     healthcheck:
       test: ["CMD", "python", "-c", "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://localhost:8000/api/health').status==200 else 1)"]
       interval: 30s
@@ -65,6 +40,3 @@ services:
     depends_on:
       backend:
         condition: service_started
-
-volumes:
-  ollama-models:

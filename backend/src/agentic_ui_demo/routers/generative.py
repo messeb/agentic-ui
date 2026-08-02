@@ -18,10 +18,11 @@ import json
 from typing import Any
 
 from fastapi import APIRouter, HTTPException, status
-from openai import APIError, AsyncOpenAI
+from openai import APIError
 from pydantic import BaseModel, Field
 
 from ..config import get_settings
+from ..llm import chat_client
 
 router = APIRouter(prefix="/generative", tags=["generative"])
 
@@ -167,14 +168,14 @@ async def generate(req: GenerateRequest) -> dict[str, Any]:
     if not settings.openai_api_key:
         raise HTTPException(
             status.HTTP_503_SERVICE_UNAVAILABLE,
-            "OPENAI_API_KEY is not set on the server. Export it and restart the backend.",
+            "OPENAI_API_KEY is not set on the server. Set it and restart the backend.",
         )
 
-    client = AsyncOpenAI(api_key=settings.openai_api_key, base_url=settings.openai_base_url or None)
+    client = chat_client()
     try:
         resp = await client.chat.completions.create(
             model=settings.openai_model,
-            temperature=0.9,  # more varied UI across requests
+            temperature=1.0,  # default — the only value some (reasoning) models accept
             messages=[
                 {"role": "system", "content": SYSTEM_PROMPT},
                 {"role": "user", "content": req.prompt},

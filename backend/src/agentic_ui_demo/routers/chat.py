@@ -13,10 +13,11 @@ from typing import Literal
 
 from fastapi import APIRouter, HTTPException, status
 from fastapi.responses import StreamingResponse
-from openai import APIError, AsyncOpenAI
+from openai import APIError
 from pydantic import BaseModel, Field
 
 from ..config import get_settings
+from ..llm import chat_client
 
 router = APIRouter(prefix="/chat", tags=["chat"])
 
@@ -42,10 +43,7 @@ def _sse(payload: dict) -> str:
 
 
 async def _stream(messages: list[dict], model: str) -> AsyncIterator[str]:
-    client = AsyncOpenAI(
-        api_key=get_settings().openai_api_key,
-        base_url=get_settings().openai_base_url or None,
-    )
+    client = chat_client()
     try:
         stream = await client.chat.completions.create(model=model, messages=messages, stream=True)
         async for chunk in stream:
@@ -66,7 +64,7 @@ async def chat(req: ChatRequest) -> StreamingResponse:
     if not settings.openai_api_key:
         raise HTTPException(
             status.HTTP_503_SERVICE_UNAVAILABLE,
-            "OPENAI_API_KEY is not set on the server. Export it and restart the backend.",
+            "OPENAI_API_KEY is not set on the server. Set it and restart the backend.",
         )
 
     model = req.model or settings.openai_model

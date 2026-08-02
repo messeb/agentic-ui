@@ -95,51 +95,49 @@ cd backend  && uv sync && uv run agentic-ui-demo          # backend only
 cd frontend && corepack enable && pnpm install && pnpm dev # frontend only
 ```
 
-### Option B — Docker (with a bundled local LLM)
+The backend is **chat-API-agnostic** — it speaks the OpenAI chat-completions API to whatever
+endpoint you point it at. Three variables, all `OPENAI_*`:
+
+| Variable | Meaning |
+|---|---|
+| `OPENAI_API_KEY` | the API key |
+| `OPENAI_MODEL` | the model (or deployment) name — default `gpt-4o-mini` |
+| `OPENAI_BASE_URL` | the endpoint (optional; omit for OpenAI's default host) |
+
+Point `OPENAI_BASE_URL` at anything that speaks the OpenAI chat API — OpenAI, **Azure OpenAI's
+OpenAI-compatible v1 endpoint**, or a local server (Ollama, vLLM, LM Studio).
+
+### Option B — Docker Compose (two services)
 
 ```bash
-# from the repo root
-docker compose up --build
+# from the repo root — set the key in your shell or a .env file next to the compose
+OPENAI_API_KEY=sk-...  docker compose up --build
 # Frontend http://localhost:3000 · Backend http://localhost:8000/docs
 ```
 
-The compose stack includes a local, **OpenAI-compatible LLM** (Ollama) so the demo runs with **no
-hosted API key**. On first start it pulls **`qwen2.5:3b`** (~1.9 GB, small but tool-calling capable);
-the backend is wired to it automatically (`OPENAI_BASE_URL=http://ollama:11434/v1`).
+Compose passes `OPENAI_API_KEY` / `OPENAI_MODEL` / `OPENAI_BASE_URL` through to the backend. Best for
+local development (separate, restartable services). Without a key the model approaches return `503`.
 
-- Swap the model by editing `DEMO_OPENAI_MODEL` (and the `ollama-pull` command) in `docker-compose.yml`
-  — e.g. `qwen2.5:1.5b` (smaller) or `llama3.2:3b`.
-- To use a **hosted** provider instead, set `OPENAI_API_KEY` (and optionally `OPENAI_BASE_URL`) in the
-  backend service and remove the `ollama` / `ollama-pull` services.
-- Caveat: a 3B model is solid for chat (#1) and tool calling (#2, #7), but strict Structured Output
-  (#3, #4) and forced `tool_choice` (#5) are less reliable than a frontier hosted model.
+### Option C — single self-contained image on ONE port (deploy on its own)
 
-### Option C — single self-contained image (deploy on its own)
-
-The root `Dockerfile` bundles **everything into one image** — Ollama (with the model **baked in**),
-the FastAPI backend, and the Nuxt frontend — so it deploys standalone with no external API key and
-no network at runtime.
+The root `Dockerfile` builds **one image** with the FastAPI backend + Nuxt frontend on a **single
+port (8080)** — the Nuxt server serves the UI and proxies `/api` to the co-located backend
+(`docker/start.sh` runs both; if either exits, the container stops so your orchestrator restarts it).
+Small (no model baked in), talks to whatever OpenAI-compatible endpoint you configure at run time.
 
 ```bash
-docker build --provenance=false -t agentic-ui-patterns .   # ~2 GB, bakes qwen2.5:3b
-docker run --rm -p 3000:3000 -p 8000:8000 agentic-ui-patterns
-# Frontend http://localhost:3000 · Backend http://localhost:8000/docs
+docker build -t agentic-ui-patterns .
+docker run --rm -p 8080:8080 \
+  -e OPENAI_API_KEY=sk-... \
+  -e OPENAI_MODEL=gpt-4o-mini \
+  agentic-ui-patterns
+# → http://localhost:8080   (API at /api, docs at /api/docs)
+# add -e OPENAI_BASE_URL=<endpoint> to target Azure's v1 endpoint, a local server, etc.
 ```
 
-- One container runs all three processes (`docker/start.sh`); if any exits, the container stops so
-  your orchestrator can restart it.
-- **Slim by construction (~2 GB):** a scratch stage strips ~3.5 GB of Ollama's CUDA/Jetpack GPU
-  libraries, and the runtime copies only the CPU Ollama binary + libs, the Node binary (no npm), and
-  a uv-managed Python onto a plain `ubuntu:24.04` base. `--provenance=false` skips attestation bloat.
-  The 1.9 GB model is almost all of the image — the app + runtime stack is only ~200 MB. (`docker
-  images` may *display* a larger number than `docker image inspect` reports, due to the containerd
-  image store.)
-- Model default is **qwen2.5:3b** — it reliably drives the tool-calling approaches (#2, #7). A smaller
-  build (`--build-arg MODEL=qwen2.5:1.5b`, ~2.7 GB) is fine for chat but tool-calls unreliably.
-- On Apple Silicon the container runs the model **CPU-only** (no Metal passthrough) — fine for a demo,
-  slower than native.
-- Use `docker compose up` (Option B) for local development with separate, hot-reloadable services;
-  use this image for a single-artifact deploy.
+> Prefer a fully offline image with the model baked in? Point `OPENAI_BASE_URL` at a local
+> OpenAI-compatible server, or bundle one — earlier revisions embedded Ollama + a small model
+> (see git history).
 
 ## Common tasks
 

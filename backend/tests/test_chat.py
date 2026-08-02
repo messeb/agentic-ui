@@ -9,7 +9,6 @@ from types import SimpleNamespace
 
 from fastapi.testclient import TestClient
 
-import agentic_ui_demo.routers.chat as chat_module
 from agentic_ui_demo.config import get_settings
 
 
@@ -35,7 +34,7 @@ class _FakeClient:
 def test_chat_streams_sse_frames(client: TestClient, monkeypatch) -> None:
     monkeypatch.setenv("OPENAI_API_KEY", "test-key")
     get_settings.cache_clear()
-    monkeypatch.setattr(chat_module, "AsyncOpenAI", _FakeClient)
+    monkeypatch.setattr("agentic_ui_demo.llm.AsyncOpenAI", _FakeClient)
 
     try:
         resp = client.post("/api/chat", json={"messages": [{"role": "user", "content": "hi"}]})

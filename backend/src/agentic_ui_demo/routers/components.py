@@ -20,10 +20,11 @@ import json
 from typing import Any
 
 from fastapi import APIRouter, HTTPException, status
-from openai import APIError, AsyncOpenAI
+from openai import APIError
 from pydantic import BaseModel, Field
 
 from ..config import get_settings
+from ..llm import chat_client
 from ..tools.flights import add_to_cart, all_flights, book_flight, clear_cart, get_cart, get_flight
 
 router = APIRouter(prefix="/components", tags=["components"])
@@ -194,10 +195,10 @@ async def component_chat(req: ComponentChatRequest) -> dict[str, Any]:
     if not settings.openai_api_key:
         raise HTTPException(
             status.HTTP_503_SERVICE_UNAVAILABLE,
-            "OPENAI_API_KEY is not set on the server. Export it and restart the backend.",
+            "OPENAI_API_KEY is not set on the server. Set it and restart the backend.",
         )
 
-    client = AsyncOpenAI(api_key=settings.openai_api_key, base_url=settings.openai_base_url or None)
+    client = chat_client()
     messages = [{"role": "system", "content": _build_system_prompt()}]
     messages += [m for m in req.messages if m.get("role") != "system"]
 

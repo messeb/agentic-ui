@@ -22,8 +22,16 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       // Base URL of the FastAPI backend. Override with NUXT_PUBLIC_API_BASE.
+      // In single-port mode set it to '' so the browser calls same-origin /api (see routeRules).
       apiBase: 'http://localhost:8000',
     },
+  },
+
+  // Single-port mode: when the app is served on one port (the all-in-one container), the browser
+  // hits same-origin /api and the Nuxt server proxies it to the co-located backend. Harmless in
+  // dev/compose (the frontend calls the backend directly via apiBase there, not same-origin /api).
+  routeRules: {
+    '/api/**': { proxy: 'http://127.0.0.1:8000/api/**' },
   },
 
   app: {

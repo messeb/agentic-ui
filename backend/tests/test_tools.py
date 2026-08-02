@@ -13,7 +13,6 @@ from types import SimpleNamespace
 import pytest
 from fastapi.testclient import TestClient
 
-import agentic_ui_demo.routers.tools as tools_module
 from agentic_ui_demo.config import get_settings
 from agentic_ui_demo.tools import REGISTRY, reset_state
 from agentic_ui_demo.tools.flights import book_flight, search_flights
@@ -95,7 +94,7 @@ def _events(text: str) -> list[dict]:
 def _use_fake(monkeypatch, script):
     monkeypatch.setenv("OPENAI_API_KEY", "test-key")
     get_settings.cache_clear()
-    monkeypatch.setattr(tools_module, "AsyncOpenAI", _fake_openai(script))
+    monkeypatch.setattr("agentic_ui_demo.llm.AsyncOpenAI", _fake_openai(script))
 
 
 # --- agent loop --------------------------------------------------------------

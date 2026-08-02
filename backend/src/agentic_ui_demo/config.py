@@ -33,14 +33,18 @@ class Settings(BaseSettings):
         "http://127.0.0.1:3000",
     ]
 
-    # --- LLM: an OpenAI-compatible chat-completions API ---
-    # The backend proxies every model call, so the key is never exposed to the frontend.
-    # Read from the GLOBAL `OPENAI_API_KEY` env var (no DEMO_ prefix). Point `OPENAI_BASE_URL`
-    # at any OpenAI-compatible endpoint — Azure OpenAI, or a local Ollama / LM Studio / vLLM
-    # server — to switch providers without code changes; leave it unset to use OpenAI.
+    # --- LLM: any OpenAI-compatible chat-completions API (chat-API-agnostic) ---
+    # Three OPENAI_* variables, nothing provider-specific. Point OPENAI_BASE_URL at whatever
+    # endpoint speaks the OpenAI chat-completions API — OpenAI, Azure OpenAI (its OpenAI-compatible
+    # v1 endpoint), or a local server (Ollama, vLLM, LM Studio). The backend proxies every call,
+    # so the key never reaches the frontend.
+    #
+    #   OPENAI_API_KEY   the API key
+    #   OPENAI_MODEL     the model (or deployment) name          [default: gpt-4o-mini]
+    #   OPENAI_BASE_URL  the endpoint  [optional — omit for OpenAI's default host]
     openai_api_key: str | None = Field(default=None, validation_alias="OPENAI_API_KEY")
+    openai_model: str = Field(default="gpt-4o-mini", validation_alias="OPENAI_MODEL")
     openai_base_url: str | None = Field(default=None, validation_alias="OPENAI_BASE_URL")
-    openai_model: str = "gpt-4o-mini"
 
 
 @lru_cache

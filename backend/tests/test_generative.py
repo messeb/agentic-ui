@@ -11,7 +11,6 @@ from types import SimpleNamespace
 
 from fastapi.testclient import TestClient
 
-import agentic_ui_demo.routers.generative as gen_module
 from agentic_ui_demo.config import get_settings
 from agentic_ui_demo.routers.generative import DATASET, RESPONSE_SCHEMA
 
@@ -51,7 +50,7 @@ def test_generate_returns_code(client: TestClient, monkeypatch) -> None:
     }
     monkeypatch.setenv("OPENAI_API_KEY", "test-key")
     get_settings.cache_clear()
-    monkeypatch.setattr(gen_module, "AsyncOpenAI", _fake_openai(document))
+    monkeypatch.setattr("agentic_ui_demo.llm.AsyncOpenAI", _fake_openai(document))
     try:
         resp = client.post("/api/generative/generate", json={"prompt": "avg price per destination"})
         assert resp.status_code == 200

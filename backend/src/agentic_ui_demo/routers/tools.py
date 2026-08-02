@@ -18,10 +18,11 @@ from typing import Any
 
 from fastapi import APIRouter, HTTPException, status
 from fastapi.responses import StreamingResponse
-from openai import APIError, AsyncOpenAI
+from openai import APIError
 from pydantic import BaseModel, Field
 
 from ..config import get_settings
+from ..llm import chat_client
 from ..tools import REGISTRY, openai_tool_schemas
 
 router = APIRouter(prefix="/tools", tags=["tools"])
@@ -115,10 +116,7 @@ def _client_messages(messages: list[dict[str, Any]]) -> list[dict[str, Any]]:
 
 
 async def _run(messages_in: list[dict[str, Any]], approvals: dict[str, bool]) -> AsyncIterator[str]:
-    client = AsyncOpenAI(
-        api_key=get_settings().openai_api_key,
-        base_url=get_settings().openai_base_url or None,
-    )
+    client = chat_client()
     model = get_settings().openai_model
     messages: list[dict[str, Any]] = [{"role": "system", "content": SYSTEM_PROMPT}]
     messages += [m for m in messages_in if m.get("role") != "system"]
@@ -217,7 +215,7 @@ async def tool_chat(req: ToolChatRequest) -> StreamingResponse:
     if not get_settings().openai_api_key:
         raise HTTPException(
             status.HTTP_503_SERVICE_UNAVAILABLE,
-            "OPENAI_API_KEY is not set on the server. Export it and restart the backend.",
+            "OPENAI_API_KEY is not set on the server. Set it and restart the backend.",
         )
     return StreamingResponse(
         _run(req.messages, req.approvals),

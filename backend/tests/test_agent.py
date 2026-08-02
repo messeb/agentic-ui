@@ -11,7 +11,6 @@ from types import SimpleNamespace
 
 from fastapi.testclient import TestClient
 
-import agentic_ui_demo.routers.agent as agent_module
 from agentic_ui_demo.config import get_settings
 from agentic_ui_demo.routers.agent import TOOLS
 
@@ -52,8 +51,7 @@ def test_step_returns_parsed_tool_calls(client: TestClient, monkeypatch) -> None
     monkeypatch.setenv("OPENAI_API_KEY", "test-key")
     get_settings.cache_clear()
     monkeypatch.setattr(
-        agent_module,
-        "AsyncOpenAI",
+        "agentic_ui_demo.llm.AsyncOpenAI",
         _fake_openai(
             ("update_form", {"field": "destination", "value": "Hamburg", "next": "continue"}),
             ("goto", {"step": "results", "next": "continue"}),

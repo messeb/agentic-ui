@@ -24,10 +24,11 @@ from typing import Any
 
 from fastapi import APIRouter, HTTPException, status
 from fastapi.responses import StreamingResponse
-from openai import APIError, AsyncOpenAI
+from openai import APIError
 from pydantic import BaseModel, Field
 
 from ..config import get_settings
+from ..llm import chat_client
 from .generative import DATASET
 
 router = APIRouter(prefix="/rsc", tags=["rsc"])
@@ -265,10 +266,7 @@ def _sse(payload: dict[str, Any]) -> str:
 
 
 async def _stream(prompt: str):
-    client = AsyncOpenAI(
-        api_key=get_settings().openai_api_key,
-        base_url=get_settings().openai_base_url or None,
-    )
+    client = chat_client()
     try:
         resp = await client.chat.completions.create(
             model=get_settings().openai_model,
@@ -314,7 +312,7 @@ async def rsc_stream(req: RscRequest) -> StreamingResponse:
     if not get_settings().openai_api_key:
         raise HTTPException(
             status.HTTP_503_SERVICE_UNAVAILABLE,
-            "OPENAI_API_KEY is not set on the server. Export it and restart the backend.",
+            "OPENAI_API_KEY is not set on the server. Set it and restart the backend.",
         )
     return StreamingResponse(
         _stream(req.prompt),

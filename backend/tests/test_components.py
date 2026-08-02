@@ -12,7 +12,6 @@ from types import SimpleNamespace
 import pytest
 from fastapi.testclient import TestClient
 
-import agentic_ui_demo.routers.components as comp_module
 from agentic_ui_demo.config import get_settings
 from agentic_ui_demo.routers.components import CATALOG, RESPONSE_SCHEMA
 from agentic_ui_demo.tools import reset_state
@@ -124,7 +123,7 @@ def test_component_chat_returns_document(client: TestClient, monkeypatch) -> Non
     }
     monkeypatch.setenv("OPENAI_API_KEY", "test-key")
     get_settings.cache_clear()
-    monkeypatch.setattr(comp_module, "AsyncOpenAI", _fake_openai(document))
+    monkeypatch.setattr("agentic_ui_demo.llm.AsyncOpenAI", _fake_openai(document))
     try:
         resp = client.post(
             "/api/components/chat",

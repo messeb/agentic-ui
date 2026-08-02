@@ -11,7 +11,6 @@ from types import SimpleNamespace
 
 from fastapi.testclient import TestClient
 
-import agentic_ui_demo.routers.protocol as proto_module
 from agentic_ui_demo.config import get_settings
 from agentic_ui_demo.routers.protocol import EVENT_TYPES
 
@@ -52,7 +51,7 @@ def _events(text: str) -> list[dict]:
 def _run(client: TestClient, monkeypatch, intent: dict) -> list[dict]:
     monkeypatch.setenv("OPENAI_API_KEY", "test-key")
     get_settings.cache_clear()
-    monkeypatch.setattr(proto_module, "AsyncOpenAI", _fake_openai(intent))
+    monkeypatch.setattr("agentic_ui_demo.llm.AsyncOpenAI", _fake_openai(intent))
     try:
         resp = client.post("/api/protocol/run", json={"prompt": "x"})
         assert resp.status_code == 200

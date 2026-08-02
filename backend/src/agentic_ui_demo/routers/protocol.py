@@ -23,10 +23,11 @@ from typing import Any
 
 from fastapi import APIRouter, HTTPException, status
 from fastapi.responses import StreamingResponse
-from openai import APIError, AsyncOpenAI
+from openai import APIError
 from pydantic import BaseModel, Field
 
 from ..config import get_settings
+from ..llm import chat_client
 from .agent import FLIGHTS
 
 router = APIRouter(prefix="/protocol", tags=["protocol"])
@@ -219,9 +220,9 @@ async def run(req: RunRequest) -> StreamingResponse:
     if not settings.openai_api_key:
         raise HTTPException(
             status.HTTP_503_SERVICE_UNAVAILABLE,
-            "OPENAI_API_KEY is not set on the server. Export it and restart the backend.",
+            "OPENAI_API_KEY is not set on the server. Set it and restart the backend.",
         )
-    client = AsyncOpenAI(api_key=settings.openai_api_key, base_url=settings.openai_base_url or None)
+    client = chat_client()
     thread_id = req.thread_id or f"thread_{uuid.uuid4().hex[:8]}"
 
     try:
