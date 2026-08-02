@@ -1,0 +1,89 @@
+backend/src/agentic_ui_demo/llm.py
+  s_8726adc094ddac::t_ace4e32b87b0ed 3-5,10,18
+  s_8726adc094ddac::t_c5b80fbbdba62c 2,6-9,11-15,17
+  s_8726adc094ddac::t_2f24cdbfa97a62 1,16
+backend/tests/test_agent.py
+  s_8726adc094ddac::t_025aa6a0c2e740 54
+backend/src/agentic_ui_demo/routers/agent.py
+  s_8726adc094ddac::t_666d7a817e03f3 19,23,226
+  s_8726adc094ddac::t_3beeb0c901d84b 223
+backend/tests/test_tools.py
+  s_8726adc094ddac::t_025aa6a0c2e740 97
+backend/tests/test_generative.py
+  s_8726adc094ddac::t_025aa6a0c2e740 53
+Dockerfile
+  s_8726adc094ddac::t_e77af8561b5412 47-49,52-53,59-61
+  s_8726adc094ddac::t_982e366b5c5d9d 7,26-28,30,32,34,36,50
+  s_8726adc094ddac::t_976f499ce5d06b 3-5,8,14
+  s_8726adc094ddac::t_ae27d48479fcc7 9-12
+  s_8726adc094ddac::t_d358c57a05c03c 46
+backend/src/agentic_ui_demo/routers/tools.py
+  s_8726adc094ddac::t_666d7a817e03f3 21,25,119
+  s_8726adc094ddac::t_3beeb0c901d84b 218
+docker/start.sh
+  s_8726adc094ddac::t_9948101e99a5d4 2-4,7-8,19
+  s_8726adc094ddac::t_b182f199eab769 11,14,17
+backend/tests/test_components.py
+  s_8726adc094ddac::t_025aa6a0c2e740 126
+backend/tests/test_chat.py
+  s_8726adc094ddac::t_025aa6a0c2e740 37
+backend/src/agentic_ui_demo/routers/generative.py
+  s_8726adc094ddac::t_3beeb0c901d84b 171
+  s_8726adc094ddac::t_666d7a817e03f3 21,25,174
+  s_8726adc094ddac::t_434353b83e8fa9 178
+backend/src/agentic_ui_demo/routers/chat.py
+  s_8726adc094ddac::t_666d7a817e03f3 16,20,46
+  s_8726adc094ddac::t_3beeb0c901d84b 67
+.env.example
+  s_8726adc094ddac::t_f48fbfb49ee7ec 16-17,19-21
+backend/src/agentic_ui_demo/routers/rsc.py
+  s_8726adc094ddac::t_666d7a817e03f3 27,31,269
+  s_8726adc094ddac::t_3beeb0c901d84b 315
+backend/src/agentic_ui_demo/config.py
+  s_8726adc094ddac::t_107d5e57f95822 36-40,42-44,46
+  s_8726adc094ddac::t_26708eca9b8a0f 41
+backend/src/agentic_ui_demo/routers/components.py
+  s_8726adc094ddac::t_3beeb0c901d84b 198
+  s_8726adc094ddac::t_666d7a817e03f3 23,27,201
+backend/src/agentic_ui_demo/routers/protocol.py
+  s_8726adc094ddac::t_666d7a817e03f3 26,30,225
+  s_8726adc094ddac::t_3beeb0c901d84b 223
+backend/tests/test_protocol.py
+  s_8726adc094ddac::t_025aa6a0c2e740 54
+frontend/nuxt.config.ts
+  s_8726adc094ddac::t_16a6bc9a1ef6b9 25,30-34
+  s_8726adc094ddac::t_25103f595fa12b 35-36
+DEVELOPMENT.md
+  s_8726adc094ddac::t_8e83ecc77d4b0c 121,123-126,130,134
+  s_8726adc094ddac::t_b842f42e795da6 118-119,131-133,135,138-140
+  s_8726adc094ddac::t_104fc49f98983c 100,102,106
+  s_8726adc094ddac::t_1c07d425567d17 98-99,101,103-105,107-108
+  s_8726adc094ddac::t_1230e65fb0aa02 109-110,113-114,129
+docker-compose.yml
+  s_8726adc094ddac::t_86171c185810a3 1-9
+  s_8726adc094ddac::t_126d8f35381cd4 18,21
+  s_8726adc094ddac::t_f5b1bafc1970f6 16-17,19-20
+backend/tests/test_rsc.py
+  s_8726adc094ddac::t_025aa6a0c2e740 89,110
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.20",
+  "base_commit_sha": "e0b717d9789bde77dcf91d5bb7f4758cca0b7add",
+  "prompts": {},
+  "humans": {
+    "h_a51360f058d7fc": {
+      "author": "Sebastian Messingfeld <sebastian@messeb.com>"
+    }
+  },
+  "sessions": {
+    "s_8726adc094ddac": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "54e9d9c9-ef87-4961-bf01-a61332105a3c",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Sebastian Messingfeld <sebastian@messeb.com>"
+    }
+  }
+}
