@@ -3,7 +3,7 @@ import hljs from 'highlight.js'
 
 // Markdown renderer with syntax highlighting. `html: false` keeps model output safe
 // (raw HTML is escaped), which matters because we render the result with v-html.
-const md: MarkdownIt = new MarkdownIt({
+const md = new MarkdownIt({
   html: false,
   linkify: true,
   breaks: true,

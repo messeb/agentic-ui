@@ -17,19 +17,19 @@
   },
   "dependencies": {
     "highlight.js": "^11.10.0",
-    "markdown-it": "^14.1.0",
-    "nuxt": "^3.14.0",
+    "markdown-it": "^15.0.0",
+    "nuxt": "^4.5.1",
     "vue": "^3.5.0",
-    "vue-router": "^4.4.0"
+    "vue-router": "^5.2.0"
   },
   "devDependencies": {
-    "@nuxt/eslint": "^0.6.0",
+    "@nuxt/eslint": "^1.16.0",
     "@tailwindcss/vite": "^4.3.3",
     "@types/markdown-it": "^14.1.2",
-    "@types/node": "^22.0.0",
+    "@types/node": "^26.1.2",
     "eslint": "^9.13.0",
     "tailwindcss": "^4.3.3",
-    "typescript": "^5.6.0",
-    "vue-tsc": "^2.1.0"
+    "typescript": "^6.0.3",
+    "vue-tsc": "^3.3.9"
   }
 }

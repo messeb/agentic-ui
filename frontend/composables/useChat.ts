@@ -60,7 +60,8 @@ export function useChat() {
           wire.value.push({ label: json.type ?? 'data', body: data, kind: 'stream' })
           if (json.error) error.value = json.error
           if (json.delta) {
-            messages.value[index].content += json.delta
+            const msg = messages.value[index]
+            if (msg) msg.content += json.delta
             onToken?.()
           }
         }

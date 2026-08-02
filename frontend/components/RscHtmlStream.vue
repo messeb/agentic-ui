@@ -19,7 +19,8 @@ function sync() {
     rendered = 0
   }
   for (let i = rendered; i < props.fragments.length; i++) {
-    el.insertAdjacentHTML('beforeend', props.fragments[i])
+    const frag = props.fragments[i]
+    if (frag) el.insertAdjacentHTML('beforeend', frag)
   }
   rendered = props.fragments.length
 }

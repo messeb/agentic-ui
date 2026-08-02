@@ -108,8 +108,8 @@ const META: Record<string, { icon: string, title: string }> = {
   boarding: { icon: '🛫', title: 'Boarding' },
   disruption: { icon: '⚠️', title: 'Flight update' },
 }
-const icon = computed(() => META[props.card.id].icon)
-const title = computed(() => META[props.card.id].title)
+const icon = computed(() => META[props.card.id]!.icon)
+const title = computed(() => META[props.card.id]!.title)
 
 const isDisruption = computed(() => props.card.id === 'disruption')
 const toneClass = computed(() =>
@@ -132,7 +132,7 @@ const departureLabel = computed(() => {
 })
 
 function addMinutes(hhmm: string, minutes: number): string {
-  const [h, m] = hhmm.split(':').map(Number)
+  const [h = 0, m = 0] = hhmm.split(':').map(Number)
   const total = (h * 60 + m + minutes + 24 * 60) % (24 * 60)
   return `${String(Math.floor(total / 60)).padStart(2, '0')}:${String(total % 60).padStart(2, '0')}`
 }

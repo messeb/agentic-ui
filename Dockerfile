@@ -14,8 +14,8 @@
 #   → App http://localhost:8080  (API under http://localhost:8080/api, docs at /api/docs)
 
 ############################ 1. Build the Nuxt frontend → .output ############################
-# Node 25 no longer bundles corepack, so install the pinned pnpm directly.
-FROM node:25-slim AS frontend
+# Node 25+ no longer bundles corepack, so install the pinned pnpm directly.
+FROM node:26-slim AS frontend
 RUN npm install -g pnpm@11.9.0
 WORKDIR /app
 # Copy the whole app before install: the `postinstall` (nuxt prepare) needs nuxt.config + source.
@@ -26,7 +26,7 @@ RUN pnpm run build
 
 ############################ 2. Runtime: backend (uv) + frontend node server ############################
 FROM python:3.14-slim AS runtime
-# libatomic1: the Node 25 binary copied from the frontend stage links against libatomic.so.1.
+# libatomic1: the Node 26 binary copied from the frontend stage links against libatomic.so.1.
 RUN apt-get update && apt-get install -y --no-install-recommends curl ca-certificates libatomic1 \
  && rm -rf /var/lib/apt/lists/*
 # uv for the Python backend; the Node binary (no npm) to serve the Nuxt build.
