@@ -1,0 +1,29 @@
+Dockerfile
+  s_8726adc094ddac::t_e5fbc3adaf94b0 17,19,21-22
+  s_8726adc094ddac::t_544ff6eb0e35b6 29-30
+.github/workflows/ci.yml
+  s_8726adc094ddac::t_36473531d1c6a9 25,46
+.github/workflows/dependabot-auto-merge.yml
+  s_8726adc094ddac::t_ca0738c99ce656 24
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.20",
+  "base_commit_sha": "fc03e9610753cad3662461ce553ace7610d960fe",
+  "prompts": {},
+  "humans": {
+    "h_a51360f058d7fc": {
+      "author": "Sebastian Messingfeld <sebastian@messeb.com>"
+    }
+  },
+  "sessions": {
+    "s_8726adc094ddac": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "54e9d9c9-ef87-4961-bf01-a61332105a3c",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Sebastian Messingfeld <sebastian@messeb.com>"
+    }
+  }
+}
