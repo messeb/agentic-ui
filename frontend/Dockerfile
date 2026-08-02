@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 # Standalone: build from this directory.
 #   docker build -t agentic-ui-demo-frontend .
-FROM node:22-slim AS build
+FROM node:25-slim AS build
 RUN corepack enable
 WORKDIR /app
 
@@ -16,7 +16,7 @@ RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store \
 COPY . .
 RUN pnpm run build
 
-FROM node:22-slim AS runtime
+FROM node:25-slim AS runtime
 WORKDIR /app
 ENV NODE_ENV=production \
     NUXT_HOST=0.0.0.0 \
