@@ -1,40 +1,59 @@
 version: 2
 
+# Kept intentionally quiet: monthly, one grouped patch+minor PR per ecosystem, and major bumps
+# ignored (they tend to break CI and need a human). Combined with the auto-merge workflow, the
+# patch/minor PRs merge themselves once CI is green — so Dependabot rarely "pops up".
+# To pick up a major (e.g. Nuxt/ESLint next), bump it by hand or drop the matching `ignore` block.
+
 updates:
-  # Frontend (Nuxt / pnpm) — minor+patch grouped, majors as separate PRs.
+  # Frontend (Nuxt / pnpm)
   - package-ecosystem: npm
     directory: /frontend
     schedule:
-      interval: weekly
-    open-pull-requests-limit: 10
+      interval: monthly
+    open-pull-requests-limit: 5
     groups:
-      frontend-minor-patch:
+      frontend:
         update-types: [minor, patch]
+    ignore:
+      - dependency-name: "*"
+        update-types: [version-update:semver-major]
 
-  # Backend (Python / uv) — minor+patch grouped, majors as separate PRs.
+  # Backend (Python / uv)
   - package-ecosystem: uv
     directory: /backend
     schedule:
-      interval: weekly
-    open-pull-requests-limit: 10
+      interval: monthly
+    open-pull-requests-limit: 5
     groups:
-      backend-minor-patch:
+      backend:
         update-types: [minor, patch]
+    ignore:
+      - dependency-name: "*"
+        update-types: [version-update:semver-major]
 
-  # Container base images (root single-image Dockerfile).
+  # Container base images (root single-image Dockerfile)
   - package-ecosystem: docker
     directory: /
     schedule:
-      interval: weekly
+      interval: monthly
+    open-pull-requests-limit: 5
     groups:
-      docker-minor-patch:
+      docker:
         update-types: [minor, patch]
+    ignore:
+      - dependency-name: "*"
+        update-types: [version-update:semver-major]
 
-  # CI pipeline (GitHub Actions) — all grouped into one PR.
+  # CI pipeline (GitHub Actions)
   - package-ecosystem: github-actions
     directory: /
     schedule:
-      interval: weekly
+      interval: monthly
+    open-pull-requests-limit: 5
     groups:
       actions:
-        patterns: ["*"]
+        update-types: [minor, patch]
+    ignore:
+      - dependency-name: "*"
+        update-types: [version-update:semver-major]

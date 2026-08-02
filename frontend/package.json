@@ -27,7 +27,7 @@
     "@tailwindcss/vite": "^4.3.3",
     "@types/markdown-it": "^14.1.2",
     "@types/node": "^26.1.2",
-    "eslint": "^9.13.0",
+    "eslint": "^10.8.0",
     "tailwindcss": "^4.3.3",
     "typescript": "^6.0.3",
     "vue-tsc": "^3.3.9"
