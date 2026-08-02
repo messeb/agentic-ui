@@ -1,0 +1,41 @@
+Dockerfile
+  s_8726adc094ddac::t_05b54f6fb0e403 17
+  s_8726adc094ddac::t_96e5f5947bbed2 27
+frontend/assets/css/tailwind.css
+  s_8726adc094ddac::t_fd51d1b5bd3776 1-6
+  s_8726adc094ddac::t_c401e24f96405f 7-17
+backend/pyproject.toml
+  s_8726adc094ddac::t_c468ecdfd458d6 9
+.github/workflows/ci.yml
+  s_8726adc094ddac::t_6bbb4fd41df3ac 23,25,43,49,68
+frontend/nuxt.config.ts
+  s_8726adc094ddac::t_485b6267ebcffb 2,9-12,18-19
+frontend/package.json
+  s_8726adc094ddac::t_5899a80d4f9b54 27,31
+  s_8726adc094ddac::t_6ef780a042cadb 10
+backend/uv.lock
+  s_8726adc094ddac::t_edae985b030bc6 31,44,46,48,105-169,183,192,194,358,370,372,593-613,673,679,681,814-898
+frontend/pnpm-lock.yaml
+  s_8726adc094ddac::t_4589e81a27bdb3 19,29-32,43-44,1430-1523,3021-3094,3607-3609,3611,4073-4074,4815,4818,4825,5275,5280,5284,5286,5288,5307,5309,5311,5338-5340,5406,5409,5459,5480,5489,5510,5519,5533,5536-5537,5613,5617-5618,5632,5643-5645,6053-6120,6333,6340,6345,6348,7533,7538,7691-7739,7810,7815,7926,7991,8080,8082,8084,8086,8089,8106,8120,8133-8134,8335,8337,8993,9097,9101,9103,9107,9144,9158,9172,9186,9242,9250,9252,9260,9341,9344-9345,9347,9349,9351,9357,9371,9380,9387,9397-9398,9400,9402,9409,9412,9424
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.20",
+  "base_commit_sha": "c527fa3483d7b8a7ca2496fe291a45d969e6c5f5",
+  "prompts": {},
+  "humans": {
+    "h_a51360f058d7fc": {
+      "author": "Sebastian Messingfeld <sebastian@messeb.com>"
+    }
+  },
+  "sessions": {
+    "s_8726adc094ddac": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "54e9d9c9-ef87-4961-bf01-a61332105a3c",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Sebastian Messingfeld <sebastian@messeb.com>"
+    }
+  }
+}
