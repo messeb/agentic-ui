@@ -1,10 +1,18 @@
-# Agentic UI — Approaches Overview
+# Agentic UI Patterns
 
-A practical map of the ways an AI/LLM can drive, generate, or adapt a user interface — from a chatbot that only *talks* to a frontend the agent fully *operates*.
+A practical map of the ways an AI/LLM can drive, generate, or adapt a user interface — from a chatbot that only *talks* to a frontend the agent fully *operates* — **plus a runnable reference implementation of all 8 patterns** (FastAPI + Nuxt, Docker, CI).
 
 Use it to pick the right approach for a feature and understand what each one costs to build and run.
 
 > **Bottom line:** Match the approach to the interaction, not to the hype. Most products need only a chatbot (#1) or tool calling (#2); reach for generative or fully agentic approaches (#4–#7) only when the value clearly outweighs their cost, latency, and governance burden. These approaches **compose** — a real product usually stacks several (e.g. tool calling that also returns components), so this is a menu, not a single bet.
+
+## Contents
+
+- [The mental model](#the-mental-model)
+- [At a glance](#at-a-glance)
+- [The approaches in detail](#the-approaches-in-detail) — with a screenshot of each running demo
+- [Engineering comparison](#engineering-comparison)
+- [**Running the demo**](#running-the-demo) — quickstart (local · Docker) and key files
 
 ## The mental model
 
@@ -41,9 +49,12 @@ The list runs from least to most agentic. The higher entries let the AI talk; th
 
 ## The approaches in detail
 
-Each card follows the same shape: **Input → Output → How it works → What you need → Best for → Trade-offs.**
+Each card follows the same shape: **Input → Output → How it works → What you need → Best for → Trade-offs**, followed by a screenshot of that pattern's demo in this repo (left: the UI · right: the raw backend stream).
 
 ### 1. Conversational chatbot / sidebar
+
+<!-- screenshot -->
+<p align="center"><a href="docs/screenshots/conversational-chatbot.png"><img src="docs/screenshots/conversational-chatbot.png" alt="Demo #1 — Conversational chatbot: streamed Markdown answer beside the raw token stream" width="480"></a></p>
 
 - **Input:** User's natural-language message plus conversation history (optionally augmented with retrieved documents / RAG context).
 - **Output:** A streamed natural-language answer, usually rendered as Markdown with code highlighting.
@@ -54,6 +65,9 @@ Each card follows the same shape: **Input → Output → How it works → What y
 
 ### 2. Function / Tool Calling
 
+<!-- screenshot -->
+<p align="center"><a href="docs/screenshots/tool-calling.png"><img src="docs/screenshots/tool-calling.png" alt="Demo #2 — Tool calling: an agent loop calling tools with a human-in-the-loop gate" width="480"></a></p>
+
 - **Input:** User intent in natural language plus a set of **tool definitions** (name, description, and a JSON-Schema for arguments).
 - **Output:** A structured **tool call** — the function name and validated arguments — which your code executes; the result is fed back to the model, which then answers.
 - **How it works:** The model decides a tool is needed and emits a call instead of prose. A dispatcher runs the matching handler, appends the result to the context window, and the loop repeats (the ReAct pattern: reason → act → observe → repeat) until the model produces a final answer. Tools can run **server-side** (privileged, DB/API) or **frontend** (in the browser — read component state, call browser APIs, mutate the UI directly).
@@ -62,6 +76,9 @@ Each card follows the same shape: **Input → Output → How it works → What y
 - **Trade-offs:** ➕ Connects the LLM to real data and actions; supports multi-step reasoning; framework-agnostic. ➖ Non-deterministic; the right tool granularity is hard (too fine = many chained calls, too coarse = inflexible); cost and latency per round-trip.
 
 ### 3. Component selection from a catalog
+
+<!-- screenshot -->
+<p align="center"><a href="docs/screenshots/component-selection.png"><img src="docs/screenshots/component-selection.png" alt="Demo #3 — Component selection: Structured Output picks hand-built components from a catalog" width="480"></a></p>
 
 - **Input:** User intent plus a **catalog of pre-built UI components**, each described with a name, a purpose, and an input schema.
 - **Output:** A **Structured Output** JSON document naming one or more components and supplying their prop values (e.g. under a `$props` key).
@@ -72,6 +89,9 @@ Each card follows the same shape: **Input → Output → How it works → What y
 
 ### 4. Generative UI via sandboxed code
 
+<!-- screenshot -->
+<p align="center"><a href="docs/screenshots/sandboxed-code.png"><img src="docs/screenshots/sandboxed-code.png" alt="Demo #4 — Generative UI: model-written JavaScript rendered in a locked-down sandbox iframe" width="480"></a></p>
+
 - **Input:** A user request plus a list of **runtime functions** the generated code may call (each a data source or a sink, with described argument/return schemas).
 - **Output:** **Generated code** (typically JavaScript) plus a status and a user-facing message, returned as a structured object.
 - **How it works:** Because models compute unreliably but *describe* computation well, the model emits code (or full React/HTML/JS) rather than doing the math. It runs in an **isolated runtime with no access to the app** — an iframe sandbox, WebContainer, or cloud VM (E2B, ~400–600ms cold start) — calling only whitelisted functions (e.g. `loadFlights`, `generateChart`). Products: **v0** (React + Tailwind + shadcn/ui), **Claude Artifacts / MCP Apps** (server HTML in a sandboxed iframe, `postMessage` back to host).
@@ -81,15 +101,21 @@ Each card follows the same shape: **Input → Output → How it works → What y
 
 ### 5. Server-streamed generative UI (RSC / v0 style)
 
+<!-- screenshot -->
+<p align="center"><a href="docs/screenshots/server-streamed-ui.png"><img src="docs/screenshots/server-streamed-ui.png" alt="Demo #5 — Server-streamed UI: the server renders components to HTML fragments and streams them in" width="480"></a></p>
+
 - **Input:** A user prompt plus a server-side tool set whose tools return UI components.
 - **Output:** A **rendered component streamed at runtime** — serialized on the server and progressively rendered on the client.
-- **How it works:** On the server, the model picks a tool that returns a component (often built on a design system); a streaming helper (e.g. `streamUI` on the Vercel AI SDK with React Server Components) serializes it and streams it to the client just like text. The component is typically ephemeral — discarded on navigation.
-- **What you need:** A server-rendering framework (Next.js / RSC or equivalent), the Vercel AI SDK, server infrastructure, and a component set the tools can return.
+- **How it works:** On the server, the model picks a tool that returns a component (often built on a design system); a server-side streaming helper (React Server Components) serializes it and streams it to the client just like text. The component is typically ephemeral — discarded on navigation.
+- **What you need:** A server-rendering framework (Next.js / RSC or equivalent), server infrastructure, and a component set the tools can return.
 - **Best for:** Historically, Next.js-native teams wanting deep RSC integration.
-- **⚠️ Status:** Vercel has **officially paused AI SDK RSC development** and now steers new projects toward client-rendered tool-calling + structured output (#2/#3). Treat RSC as legacy, not a default.
+- **⚠️ Status:** RSC-based generative UI has been **officially paused upstream**, with new projects steered toward client-rendered tool-calling + structured output (#2/#3). Treat RSC as legacy, not a default.
 - **Trade-offs:** ➕ Pre-written components streamed with no code-gen/sandbox step; strong type safety; good partial-render latency. ➖ Tightly coupled to Next.js/RSC (framework lock-in); complex mental model; now deprioritized upstream.
 
 ### 6. Intent-based adaptive UI (inference layer)
+
+<!-- screenshot -->
+<p align="center"><a href="docs/screenshots/intent-adaptive.png"><img src="docs/screenshots/intent-adaptive.png" alt="Demo #6 — Adaptive UI: an inference layer scores context and re-ranks the interface, no chat" width="480"></a></p>
 
 - **Input:** **Implicit user telemetry** — clicks, dwell time, mouse movement, usage history — not a chat message.
 - **Output:** A **re-rendered or re-ranked interface**: which components appear, in what order, with which emphasis.
@@ -100,6 +126,9 @@ Each card follows the same shape: **Input → Output → How it works → What y
 
 ### 7. Agentic frontend ("UI as toolbox")
 
+<!-- screenshot -->
+<p align="center"><a href="docs/screenshots/agentic-frontend.png"><img src="docs/screenshots/agentic-frontend.png" alt="Demo #7 — Agentic frontend: a goal drives a stateless dispatcher that operates the whole app" width="480"></a></p>
+
 - **Input:** A user **goal** (typed or spoken) plus the **current app state**, injected into the prompt on every turn.
 - **Output:** A **stream of tool calls** — each a state patch (e.g. fill a field, filter a table, navigate) carrying a `nextStep` directive — applied to the reactive store.
 - **How it works:** The key insight is that *an LLM function call and a frontend state mutation are the same thing*, so every UI mutation is exposed as a callable tool. A generic dispatcher applies each call as a patch and re-renders. The system prompt is rebuilt from live state each request ("the prompt *is* the state"), acting as a state machine — no separate client-side conversation memory. Deterministic flow stays in the frontend; only interpretive decisions go to the model.
@@ -108,6 +137,9 @@ Each card follows the same shape: **Input → Output → How it works → What y
 - **Trade-offs:** ➕ Most capable; unifies data and navigation logic; transport- and voice-agnostic. ➖ Costliest (full prompt rebuilt each turn); too slow for keystroke-level interactions; unsafe for regulated/high-stakes flows without explicit human confirmation; **prompt-injection exposure** — untrusted content and live app state enter the prompt every turn; largest blast radius, so scope tools tightly; accessibility must be built in deliberately.
 
 ### 8. Protocol-decoupled agents (MCP · MCP-UI · AG-UI)
+
+<!-- screenshot -->
+<p align="center"><a href="docs/screenshots/protocol-decoupled.png"><img src="docs/screenshots/protocol-decoupled.png" alt="Demo #8 — Protocol layer: the UI is a pure function of a typed AG-UI event stream, with an MCP-UI resource" width="480"></a></p>
 
 Not a rung on the ladder but an **architectural layer under approaches 1–7** — open standards that solve the "M×N" glue problem (every agent framework needing custom wiring for every frontend). They are **complementary, not competing**:
 
@@ -154,38 +186,94 @@ Qualitative ratings to weigh the operational cost of each approach. **Lower is c
 | 7 | Agentic frontend | Emerging | High | **High** | High | Low | Med | Med–High | Med |
 | 8 | Protocol-decoupled (AG-UI) | Emerging | Med | — | — | — | High | Low | **Low** |
 
-> **Maturity** signals build risk: *Proven* = widely in production; *Established* = solid tooling, growing adoption; *Emerging* = promising but young, expect churn; *Paused* = upstream has deprioritized it (RSC); *Least mature* = active research, thin production track record. **Determinism** = *output-UI* determinism ("High" is good): tool calling can be schema-valid yet still pick different tools/args, so it rates Low. **Lock-in, runtime cost, and security** columns are author synthesis (not in the source) — treat as directional. Row 8 inherits the runtime characteristics of whichever approach it wraps.
+---
 
-**Build vs. buy & team readiness.** Most approaches are buy-first — adopt CopilotKit / Vercel AI SDK / an AG-UI SDK rather than hand-rolling the loop and protocol. Skill demands differ sharply: #4 needs security engineering (sandboxing), #5 deep Next.js/RSC, #6 ML/data engineering, #7 disciplined prompt/state engineering. Staff to the approach, not to the demo.
+# Running the demo
 
-## Cross-cutting concerns
+A **best-in-class reference implementation** of all 8 patterns above, wired end-to-end — a shared
+manifest, a FastAPI backend, a Nuxt frontend, and CI. Each approach owns a **dedicated backend
+router** and a **dedicated frontend page**.
 
-These apply to every approach beyond a plain chatbot and should be designed in from the start:
+| # | Approach | Highlights | Route |
+|---|----------|-----------|-------|
+| 1 | Conversational chatbot | OpenAI streaming over SSE, incremental Markdown + code highlighting, smart auto-scroll | `/approaches/conversational-chatbot` |
+| 2 | Function / Tool Calling | Agent loop (reason→act→observe), tool dispatcher, **human-in-the-loop permission** for side-effect tools, transparent step-by-step timeline | `/approaches/tool-calling` |
+| 3 | Component selection | **Structured Output** picks components from a catalog; a renderer instantiates hand-built Vue components. Combined with a **real booking call** (#2's shared flight state) | `/approaches/component-selection` |
+| 4 | Generative UI (sandboxed code) | The model **generates JavaScript** (Structured Output) that renders **arbitrary UI** into a **locked-down iframe** (`allow-scripts` without `allow-same-origin`, CSP `connect-src 'none'`). Data via a `postMessage`→`loadFlights` bridge; backend never executes the code | `/approaches/sandboxed-code` |
+| 5 | Server-streamed UI (RSC/v0) | The model composes a page from **server-side render tools**; the server renders each component to a **real HTML fragment** and **streams the fragments** over SSE; the client mounts them progressively. Component set = **web components** (`<flight-card>`) — framework-agnostic | `/approaches/server-streamed-ui` |
+| 6 | Intent-based adaptive UI | **No chat.** Implicit context (trip timeline, disruption) → a deterministic **inference layer** scores intent → the UI **re-ranks and emphasizes/hides widgets**. Transparent rationale; needs no API key | `/approaches/intent-adaptive` |
+| 7 | Agentic frontend ("UI as toolbox") | A **goal** drives the app: every UI mutation is a flat tool; a **generic dispatcher** applies each call as a state patch; the **stateless** backend rebuilds the prompt from live state each turn; **`book` is HITL-gated**; every action gets a visible highlight + **`aria-live`** | `/approaches/agentic-frontend` |
+| 8 | Protocol-decoupled (MCP · MCP-UI · AG-UI) | The UI is a **pure function of a typed AG-UI event stream**. State syncs via **`STATE_SNAPSHOT` + `STATE_DELTA`** (RFC-6902 JSON Patch); a tool result can carry an **MCP-UI `ui://`** HTML resource in a sandboxed iframe. Live event inspector included | `/approaches/protocol-decoupled` |
 
-- **Transparency** — show what the agent did and why (surface tool calls in plain language, not raw function names).
-- **Reversibility & control** — undo, human confirmation for consequential actions, and a kill switch; keep humans accountable for outcomes.
-- **Governance** — define what the agent may do autonomously vs. what needs approval; log model/prompt/tool versions, decisions, and cost budgets for audit; protocols like MCP Apps force explicit capability declaration (`ui.components`, `ui.hooks`).
-- **Security** — treat model output and any injected content as untrusted: gate tool execution behind a permission layer, sandbox generated code, and defend against **prompt injection** (untrusted text or app state steering the model). Human-in-the-loop (HITL) approval before consequential side effects.
-- **Accessibility** — dynamic, AI-driven changes are silent to assistive tech unless announced via `aria-live`; this is a hard requirement, not a nicety.
-- **Cost & latency** — token generation costs more than rendering markup and adds delay; mitigate with cheap-model proxies, streaming/optimistic UI, and prompt caching.
+Without a model key the model-backed approaches (all but #6) return `503` and the panels show a clear
+message.
 
-## Production signals & 2026 outlook
+## Quickstart
 
-- **Proven in production:** tool calling + component rendering. Shopify **Sidekick** (Claude) chains many tool calls per turn with an **LLM-as-judge** eval harness to fight "tool confusion" as the catalog grows. *Separately*, Shopify **Flow**'s fine-tuned Qwen3-32B tool-calling agent hit **2.2× faster / 68% cheaper** — a different product, not Sidekick.
-- **Standards still settling:** MCP (tools) + AG-UI (UI) + MCP Apps/MCP-UI (portable sandboxed UI) are converging into a layered stack, but competing UI specs (A2UI, Open-JSON-UI) mean short-term churn. Open questions: reusable non-re-rendering views, letting a model "fill a UI like a human," and whether HTML suffices for mobile-native.
-
-## Choosing an approach
-
-1. **Start at the top of the list and stop as soon as the value is delivered.** Move down only when the added capability justifies the extra cost, latency, non-determinism, and governance burden.
-2. **Keep deterministic flow in the frontend.** Hand the AI only decisions that genuinely require interpreting user intent; hard rules belong in code, not in a prompt.
-3. **Match the approach to the interaction.** Q&A → #1; live data/actions → #2; rich answers → #3; open-ended computation → #4; adaptive personalization → #6; full task automation → #7.
-4. **Treat protocols (#8) as orthogonal** — layer MCP/AG-UI/MCP-UI under any approach when independence from a specific backend or model matters.
-5. **Never put autonomy on high-stakes or latency-critical paths** (payments, medical, legal, keystroke-level editing) without explicit human confirmation.
-
-## Demo workspace
-
-A runnable implementation with **all 8 approaches fully built** lives in this repo — Python/FastAPI (uv) + Vue/Nuxt, Docker, and CI, wiring the shared manifest → backend → frontend end-to-end (see [`DEVELOPMENT.md`](./DEVELOPMENT.md)): a streaming OpenAI chatbot (SSE); a tool-calling agent loop with a human-in-the-loop permission gate; Structured-Output component selection (combined with a real booking call); generative UI where model-written JS runs in a locked-down sandboxed iframe; server-streamed UI (a framework-native take on the RSC/`streamUI` pattern); an intent-based adaptive UI driven by implicit telemetry (no chat, no API key); an agentic "UI as toolbox" frontend where a goal drives a stateless dispatcher loop with a HITL booking gate; and a protocol-decoupled layer where the UI is a pure function of a typed AG-UI event stream (with `STATE_DELTA` JSON Patch and an MCP-UI `ui://` sandboxed-iframe resource).
+### Option A — local (two processes)
 
 ```bash
-docker compose up --build   # from repo root · frontend :3000 · backend :8000/docs
+# from the repo root
+make setup                    # syncs manifest, installs backend (uv) + frontend (pnpm)
+
+make dev-backend              # terminal 1 → http://localhost:8000/docs
+make dev-frontend             # terminal 2 → http://localhost:3000
 ```
+
+Or per app, standalone:
+
+```bash
+cd backend  && uv sync && uv run agentic-ui-demo             # backend only
+cd frontend && corepack enable && pnpm install && pnpm dev   # frontend only
+```
+
+The backend is **chat-API-agnostic** — it speaks the OpenAI chat-completions API to whatever endpoint
+you point it at. Three variables, all `OPENAI_*`:
+
+| Variable | Meaning |
+|---|---|
+| `OPENAI_API_KEY` | the API key |
+| `OPENAI_MODEL` | the model (or deployment) name — default `gpt-4o-mini` |
+| `OPENAI_BASE_URL` | the endpoint (optional; omit for OpenAI's default host) |
+
+Point `OPENAI_BASE_URL` at anything that speaks the OpenAI chat API — OpenAI, **Azure OpenAI's
+OpenAI-compatible v1 endpoint**, or a local server (Ollama, vLLM, LM Studio). The key stays
+server-side; the frontend never sees it.
+
+### Option B — single self-contained image on ONE port
+
+The root `Dockerfile` builds **one image** with the FastAPI backend + Nuxt frontend on a **single port
+(8080)** — the Nuxt server serves the UI and proxies `/api` to the co-located backend
+(`docker/start.sh` runs both; if either exits, the container stops so your orchestrator restarts it).
+Small (no model baked in), talks to whatever OpenAI-compatible endpoint you configure at run time.
+
+```bash
+docker build -t agentic-ui-patterns .
+docker run --rm -p 8080:8080 \
+  -e OPENAI_API_KEY=sk-... \
+  -e OPENAI_MODEL=gpt-4o-mini \
+  agentic-ui-patterns
+# → http://localhost:8080   (API at /api, docs at /api/docs)
+# add -e OPENAI_BASE_URL=<endpoint> to target Azure's v1 endpoint, a local server, etc.
+```
+
+## Key files per approach
+
+- #1 — `backend/…/routers/chat.py`, `frontend/composables/useChat.ts`, `frontend/components/ChatPanel.vue`
+- #2 — `backend/…/routers/tools.py`, `backend/…/tools/flights.py`, `frontend/composables/useToolChat.ts`, `frontend/components/ToolChatPanel.vue`
+- #3 — `backend/…/routers/components.py`, `frontend/components/catalog/*.vue`, `frontend/components/CatalogRenderer.vue`, `frontend/composables/useComponentChat.ts`
+- #4 — `backend/…/routers/generative.py`, `frontend/components/SandboxRunner.vue` (the sandbox), `frontend/composables/useGenerativeUi.ts`
+- #5 — `backend/…/routers/rsc.py` (HTML fragments), `frontend/components/RscHtmlStream.vue` (progressive mount), `frontend/plugins/webcomponents.client.ts` (`<flight-card>`), `frontend/composables/useRscStream.ts`
+- #6 — `backend/…/routers/adaptive.py` (scoring layer), `frontend/composables/useAdaptive.ts`, `frontend/components/InferencePanel.vue` + `AdaptiveCard.vue`
+- #7 — `backend/…/routers/agent.py` (stateless step), `frontend/composables/useAgentApp.ts` (store + dispatcher + loop), `frontend/components/Agent*.vue`
+- #8 — `backend/…/routers/protocol.py` (AG-UI event stream), `frontend/composables/useProtocol.ts` (client + JSON Patch), `frontend/components/McpUiFrame.vue` + `ProtocolInspector.vue`
+
+## Common tasks
+
+```bash
+make help            # list all targets
+make check           # lint + test (what CI runs)
+make test            # backend tests with coverage
+```
+
+See [`CONTRIBUTING.md`](./CONTRIBUTING.md) for the PR checklist.

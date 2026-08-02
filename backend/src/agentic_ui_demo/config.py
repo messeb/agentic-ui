@@ -8,8 +8,7 @@ from pathlib import Path
 from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
-# The manifest is vendored inside the package so the backend is standalone.
-# (Sync it from demo/shared/approaches.json with `make sync-manifest`.)
+# The manifest lives inside the package so the backend is standalone.
 _DEFAULT_MANIFEST = Path(__file__).resolve().parent / "data" / "approaches.json"
 
 

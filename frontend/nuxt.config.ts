@@ -14,7 +14,7 @@ export default defineNuxtConfig({
   // Code-highlighting theme for streamed Markdown (approach #1).
   css: ['highlight.js/styles/github-dark.css'],
 
-  // Vendored manifest (kept in sync with shared/approaches.json via `make sync-manifest`).
+  // Approaches manifest (frontend/shared/approaches.json), imported via the @shared alias.
   alias: {
     '@shared': fileURLToPath(new URL('./shared', import.meta.url)),
   },

@@ -11,12 +11,12 @@ from .models import Approach, Manifest
 
 @lru_cache
 def load_manifest() -> Manifest:
-    """Read and validate the shared approaches manifest (cached)."""
+    """Read and validate the approaches manifest (cached)."""
     path = get_settings().approaches_manifest
     if not path.exists():
         raise FileNotFoundError(
             f"Approaches manifest not found at {path}. "
-            "Set DEMO_APPROACHES_MANIFEST to the path of shared/approaches.json."
+            "Set DEMO_APPROACHES_MANIFEST to the path of an approaches.json manifest."
         )
     data = json.loads(path.read_text(encoding="utf-8"))
     return Manifest.model_validate(data)

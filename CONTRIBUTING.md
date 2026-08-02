@@ -1,7 +1,7 @@
 # Contributing
 
 Thanks for your interest! This repo is a **reference implementation** of the 8 Agentic UI
-approaches (all fully built). See [`DEVELOPMENT.md`](./DEVELOPMENT.md) for the full dev guide.
+approaches (all fully built). See the [README](./README.md#running-the-demo) for the full dev guide.
 
 ## Getting started
 
@@ -9,23 +9,22 @@ The repo has two **standalone** apps — `backend/` (uv) and `frontend/` (pnpm).
 **from the repo root**:
 
 ```bash
-make setup        # syncs the manifest, installs backend (uv) + frontend (pnpm)
+make setup        # installs backend (uv) + frontend (pnpm)
 ```
 
-Run the stack with `make dev-backend` + `make dev-frontend`, or `docker compose up --build`.
+Run the stack with `make dev-backend` + `make dev-frontend`, or `make docker` (single-image build).
 
 ## Before you open a PR
 
 Run the same checks CI runs:
 
 ```bash
-make check        # manifest-sync + ruff + pytest + (frontend) eslint/typecheck
+make check        # ruff + pytest + (frontend) eslint/typecheck
 ```
 
-- `shared/approaches.json` is the canonical contract. It is vendored into each app
-  (`backend/src/agentic_ui_demo/data/` and `frontend/shared/`). After editing it, run
-  `make sync-manifest`. If you change the contract's shape, update the types in
-  `frontend/types/approach.ts` and the Pydantic models in `backend/.../models.py`.
+- The approaches manifest lives in each app: `backend/src/agentic_ui_demo/data/approaches.json`
+  and `frontend/shared/approaches.json`. If you change the contract's shape, update **both** copies,
+  the types in `frontend/types/approach.ts`, and the Pydantic models in `backend/.../models.py`.
 - **Never put API keys in the frontend.** The backend proxies all model calls.
 - Conventional Commits are appreciated (`feat:`, `fix:`, `docs:`, `chore:`).
 

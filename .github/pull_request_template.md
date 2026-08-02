@@ -12,7 +12,7 @@
 ## Checklist
 
 - [ ] `make check` passes locally (lint + tests)
-- [ ] Updated `shared/approaches.json` if the contract changed
+- [ ] Updated both manifest copies (`backend/.../data/approaches.json` + `frontend/shared/approaches.json`) if the contract changed
 - [ ] No secrets/API keys added to the frontend
 - [ ] Docs updated where relevant
 
