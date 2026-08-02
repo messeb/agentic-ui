@@ -24,7 +24,7 @@ COPY frontend/ ./
 RUN pnpm run build
 
 ############################ 2. Runtime: backend (uv) + frontend node server ############################
-FROM python:3.12-slim AS runtime
+FROM python:3.14-slim AS runtime
 RUN apt-get update && apt-get install -y --no-install-recommends curl ca-certificates \
  && rm -rf /var/lib/apt/lists/*
 # uv for the Python backend; the Node binary (no npm) to serve the Nuxt build.
