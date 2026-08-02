@@ -1,0 +1,35 @@
+.github/dependabot.yml
+  s_8726adc094ddac::t_af93bb53c05cd2 2,4-6,9,11-12,14-16,19,21-22,24,26,29-31,33,38-40
+README.md
+  s_8726adc094ddac::t_d91671b92e8f5c 188
+  s_8726adc094ddac::t_625f2024751d74 19,21-28
+  s_8726adc094ddac::t_4cccacdf456dd9 191
+  s_8726adc094ddac::t_e2eeb8f934aacb 195
+  s_8726adc094ddac::t_78f47687896eb0 221
+.github/workflows/dependabot-auto-merge.yml
+  s_8726adc094ddac::t_e95da290682ce1 1-38
+.github/workflows/ci.yml
+  s_8726adc094ddac::t_d1086a4f78394c 44-45,47-48,51
+  s_8726adc094ddac::t_a1ffa35e1b10c1 64-65
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.20",
+  "base_commit_sha": "39795de434fd1031d8f2a5bf26460fef4cdd93b9",
+  "prompts": {},
+  "humans": {
+    "h_a51360f058d7fc": {
+      "author": "Sebastian Messingfeld <sebastian@messeb.com>"
+    }
+  },
+  "sessions": {
+    "s_8726adc094ddac": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "54e9d9c9-ef87-4961-bf01-a61332105a3c",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Sebastian Messingfeld <sebastian@messeb.com>"
+    }
+  }
+}
