@@ -1,29 +1,40 @@
 version: 2
-updates:
-  - package-ecosystem: uv
-    directory: /backend
-    schedule:
-      interval: weekly
-    groups:
-      python:
-        patterns: ["*"]
 
+updates:
+  # Frontend (Nuxt / pnpm) — minor+patch grouped, majors as separate PRs.
   - package-ecosystem: npm
     directory: /frontend
     schedule:
       interval: weekly
+    open-pull-requests-limit: 10
     groups:
-      node:
-        patterns: ["*"]
+      frontend-minor-patch:
+        update-types: [minor, patch]
 
-  - package-ecosystem: docker
-    directories:
-      - /backend
-      - /frontend
+  # Backend (Python / uv) — minor+patch grouped, majors as separate PRs.
+  - package-ecosystem: uv
+    directory: /backend
     schedule:
       interval: weekly
+    open-pull-requests-limit: 10
+    groups:
+      backend-minor-patch:
+        update-types: [minor, patch]
 
+  # Container base images (root single-image Dockerfile).
+  - package-ecosystem: docker
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      docker-minor-patch:
+        update-types: [minor, patch]
+
+  # CI pipeline (GitHub Actions) — all grouped into one PR.
   - package-ecosystem: github-actions
     directory: /
     schedule:
       interval: weekly
+    groups:
+      actions:
+        patterns: ["*"]

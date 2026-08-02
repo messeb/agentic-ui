@@ -4,18 +4,6 @@ A practical map of the ways an AI/LLM can drive, generate, or adapt a user inter
 
 Use it to pick the right approach for a feature and understand what each one costs to build and run.
 
-> **Bottom line:** Match the approach to the interaction, not to the hype. Most products need only a chatbot (#1) or tool calling (#2); reach for generative or fully agentic approaches (#4–#7) only when the value clearly outweighs their cost, latency, and governance burden. These approaches **compose** — a real product usually stacks several (e.g. tool calling that also returns components), so this is a menu, not a single bet.
-
-## Contents
-
-- [The mental model](#the-mental-model)
-- [At a glance](#at-a-glance)
-- [The approaches in detail](#the-approaches-in-detail) — with a screenshot of each running demo
-- [Engineering comparison](#engineering-comparison)
-- [**Running the demo**](#running-the-demo) — quickstart (local · Docker) and key files
-
-## The mental model
-
 Every approach is a variation on one loop:
 
 ```
@@ -28,9 +16,16 @@ What differs between approaches is **three things**:
 - **Output** — what the AI produces (text, a structured action, a component choice, generated code, or a layout decision).
 - **Authority** — how much the AI is allowed to *do* vs. merely *suggest*.
 
-The list runs from least to most agentic. The higher entries let the AI talk; the lower ones let it act on and generate the interface itself.
+The list runs from least to most agentic: the higher entries let the AI talk; the lower ones let it act on and generate the interface itself.
 
-## At a glance
+## Contents
+
+- [Overview](#overview)
+- [The approaches in detail](#the-approaches-in-detail) — with a screenshot of each running demo
+- [Engineering comparison](#engineering-comparison)
+- [**Running the demo**](#running-the-demo) — quickstart (local · Docker)
+
+## Overview
 
 | # | Approach | Input | Output | Agentic level |
 |---|----------|-------|--------|:---:|
@@ -190,31 +185,14 @@ Qualitative ratings to weigh the operational cost of each approach. **Lower is c
 
 # Running the demo
 
-A **best-in-class reference implementation** of all 8 patterns above, wired end-to-end — a shared
-manifest, a FastAPI backend, a Nuxt frontend, and CI. Each approach owns a **dedicated backend
-router** and a **dedicated frontend page**.
-
-| # | Approach | Highlights | Route |
-|---|----------|-----------|-------|
-| 1 | Conversational chatbot | OpenAI streaming over SSE, incremental Markdown + code highlighting, smart auto-scroll | `/approaches/conversational-chatbot` |
-| 2 | Function / Tool Calling | Agent loop (reason→act→observe), tool dispatcher, **human-in-the-loop permission** for side-effect tools, transparent step-by-step timeline | `/approaches/tool-calling` |
-| 3 | Component selection | **Structured Output** picks components from a catalog; a renderer instantiates hand-built Vue components. Combined with a **real booking call** (#2's shared flight state) | `/approaches/component-selection` |
-| 4 | Generative UI (sandboxed code) | The model **generates JavaScript** (Structured Output) that renders **arbitrary UI** into a **locked-down iframe** (`allow-scripts` without `allow-same-origin`, CSP `connect-src 'none'`). Data via a `postMessage`→`loadFlights` bridge; backend never executes the code | `/approaches/sandboxed-code` |
-| 5 | Server-streamed UI (RSC/v0) | The model composes a page from **server-side render tools**; the server renders each component to a **real HTML fragment** and **streams the fragments** over SSE; the client mounts them progressively. Component set = **web components** (`<flight-card>`) — framework-agnostic | `/approaches/server-streamed-ui` |
-| 6 | Intent-based adaptive UI | **No chat.** Implicit context (trip timeline, disruption) → a deterministic **inference layer** scores intent → the UI **re-ranks and emphasizes/hides widgets**. Transparent rationale; needs no API key | `/approaches/intent-adaptive` |
-| 7 | Agentic frontend ("UI as toolbox") | A **goal** drives the app: every UI mutation is a flat tool; a **generic dispatcher** applies each call as a state patch; the **stateless** backend rebuilds the prompt from live state each turn; **`book` is HITL-gated**; every action gets a visible highlight + **`aria-live`** | `/approaches/agentic-frontend` |
-| 8 | Protocol-decoupled (MCP · MCP-UI · AG-UI) | The UI is a **pure function of a typed AG-UI event stream**. State syncs via **`STATE_SNAPSHOT` + `STATE_DELTA`** (RFC-6902 JSON Patch); a tool result can carry an **MCP-UI `ui://`** HTML resource in a sandboxed iframe. Live event inspector included | `/approaches/protocol-decoupled` |
-
-Without a model key the model-backed approaches (all but #6) return `503` and the panels show a clear
+The model-backed approaches (all but #6) need a model key — without one they return `503` with a clear
 message.
 
-## Quickstart
-
-### Option A — local (two processes)
+## Local Execution
 
 ```bash
 # from the repo root
-make setup                    # syncs manifest, installs backend (uv) + frontend (pnpm)
+make setup                    # installs backend (uv) + frontend (pnpm)
 
 make dev-backend              # terminal 1 → http://localhost:8000/docs
 make dev-frontend             # terminal 2 → http://localhost:3000
@@ -240,7 +218,7 @@ Point `OPENAI_BASE_URL` at anything that speaks the OpenAI chat API — OpenAI, 
 OpenAI-compatible v1 endpoint**, or a local server (Ollama, vLLM, LM Studio). The key stays
 server-side; the frontend never sees it.
 
-### Option B — single self-contained image on ONE port
+## Self-Contained Container Image
 
 The root `Dockerfile` builds **one image** with the FastAPI backend + Nuxt frontend on a **single port
 (8080)** — the Nuxt server serves the UI and proxies `/api` to the co-located backend
@@ -256,17 +234,6 @@ docker run --rm -p 8080:8080 \
 # → http://localhost:8080   (API at /api, docs at /api/docs)
 # add -e OPENAI_BASE_URL=<endpoint> to target Azure's v1 endpoint, a local server, etc.
 ```
-
-## Key files per approach
-
-- #1 — `backend/…/routers/chat.py`, `frontend/composables/useChat.ts`, `frontend/components/ChatPanel.vue`
-- #2 — `backend/…/routers/tools.py`, `backend/…/tools/flights.py`, `frontend/composables/useToolChat.ts`, `frontend/components/ToolChatPanel.vue`
-- #3 — `backend/…/routers/components.py`, `frontend/components/catalog/*.vue`, `frontend/components/CatalogRenderer.vue`, `frontend/composables/useComponentChat.ts`
-- #4 — `backend/…/routers/generative.py`, `frontend/components/SandboxRunner.vue` (the sandbox), `frontend/composables/useGenerativeUi.ts`
-- #5 — `backend/…/routers/rsc.py` (HTML fragments), `frontend/components/RscHtmlStream.vue` (progressive mount), `frontend/plugins/webcomponents.client.ts` (`<flight-card>`), `frontend/composables/useRscStream.ts`
-- #6 — `backend/…/routers/adaptive.py` (scoring layer), `frontend/composables/useAdaptive.ts`, `frontend/components/InferencePanel.vue` + `AdaptiveCard.vue`
-- #7 — `backend/…/routers/agent.py` (stateless step), `frontend/composables/useAgentApp.ts` (store + dispatcher + loop), `frontend/components/Agent*.vue`
-- #8 — `backend/…/routers/protocol.py` (AG-UI event stream), `frontend/composables/useProtocol.ts` (client + JSON Patch), `frontend/components/McpUiFrame.vue` + `ProtocolInspector.vue`
 
 ## Common tasks
 
