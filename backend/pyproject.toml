@@ -5,11 +5,11 @@ description = "Standalone FastAPI backend scaffolding the 8 Agentic UI approache
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-    "fastapi>=0.115",
-    "uvicorn[standard]>=0.30",
+    "fastapi>=0.141.1",
+    "uvicorn[standard]>=0.52.0",
     "pydantic>=2.7",
     "pydantic-settings>=2.3",
-    "openai>=1.40",
+    "openai>=2.50.0",
 ]
 
 [project.scripts]
