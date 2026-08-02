@@ -15,7 +15,7 @@
 
 ############################ 1. Build the Nuxt frontend → .output ############################
 # Node 25 no longer bundles corepack, so install the pinned pnpm directly.
-FROM node:25-slim AS frontend
+FROM node:26-slim AS frontend
 RUN npm install -g pnpm@11.9.0
 WORKDIR /app
 # Copy the whole app before install: the `postinstall` (nuxt prepare) needs nuxt.config + source.
