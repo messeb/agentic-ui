@@ -1,0 +1,255 @@
+frontend/nuxt.config.ts
+  s_8726adc094ddac::t_f923318c871f61 31
+  s_8726adc094ddac::t_e21ded40470afb 17
+backend/src/agentic_ui_demo/routers/generative.py
+  s_8726adc094ddac::t_b6846249e2e3d7 1-194
+.env.example
+  s_8726adc094ddac::t_d0a6e068ee3277 16-23
+frontend/pages/approaches/tool-calling.vue
+  s_8726adc094ddac::t_a827ee0db90a17 35-38
+  s_8726adc094ddac::t_3a8c2e3387804e 17,20
+  s_8726adc094ddac::t_594e56f0540f43 62-66
+  s_8726adc094ddac::t_befa1d18f59ec7 11-13,15-16
+  s_8726adc094ddac::t_3bba9231f1e30e 14
+  s_8726adc094ddac::t_9a8bd45dfaf75b 18,21-22
+  s_8726adc094ddac::t_e509de89bc15a3 19
+frontend/types/adaptive.ts
+  s_8726adc094ddac::t_6f3f9564c51220 1,3-15,18-44
+frontend/composables/useToolChat.ts
+  s_8726adc094ddac::t_cb4213737ba35c 123
+  s_8726adc094ddac::t_5821872e25ce26 3
+  s_8726adc094ddac::t_dd3f8fedac8d06 142-145
+  s_8726adc094ddac::t_0df6d9e990c96a 17
+  s_8726adc094ddac::t_cab1b1f8d51251 34-38
+  s_8726adc094ddac::t_a1f26a95aa0a4c 6
+frontend/components/ApproachIntro.vue
+  s_8726adc094ddac::t_54d0df03056911 1-16
+backend/src/agentic_ui_demo/routers/tools.py
+  s_8726adc094ddac::t_a2e1057cd14af1 1-226
+frontend/components/AdaptiveCard.vue
+  s_8726adc094ddac::t_665faed5611c46 1-154
+DEVELOPMENT.md
+  s_8726adc094ddac::t_d63b87cc124557 101
+  s_8726adc094ddac::t_a789c00c4c275a 117-123,125-130,141-143
+  s_8726adc094ddac::t_6e30e8899143bb 124,131,134-136
+  s_8726adc094ddac::t_bfc6c6b815e271 98,106-115
+  s_8726adc094ddac::t_cfb4729180d299 132-133,137-140
+  s_8726adc094ddac::t_04d4a84fc73acc 83
+  s_8726adc094ddac::t_b977233b4af1dd 156-159
+  s_8726adc094ddac::t_a20b6369038dbc 1,3,5-7,9-10
+  s_8726adc094ddac::t_7adeb339755c24 116
+frontend/composables/useChat.ts
+  s_8726adc094ddac::t_44b9d805bb930b 21
+  s_8726adc094ddac::t_946b2c52abc219 3
+  s_8726adc094ddac::t_cddeebf8212b35 14
+  s_8726adc094ddac::t_1acbae89248011 55-60,65
+  s_8726adc094ddac::t_aae88659496db5 84
+docker/start.sh
+  s_8726adc094ddac::t_04d77750b68790 1-34
+frontend/components/ApproachCard.vue
+  s_8726adc094ddac::t_ef4edffebdf697 6
+backend/src/agentic_ui_demo/routers/protocol.py
+  s_8726adc094ddac::t_b6846249e2e3d7 1-247
+frontend/components/ToolChatPanel.vue
+  s_8726adc094ddac::t_cf48671cdad31a 2-39,41-45,47-86,108
+  s_8726adc094ddac::t_71d4a55e2d653e 40,46,88
+  s_8726adc094ddac::t_61bf20ad37492f 90-92
+  s_8726adc094ddac::t_fba928fa69b0a0 87
+.dockerignore
+  s_8726adc094ddac::t_3453e33235b9c9 1-15
+CONTRIBUTING.md
+  s_8726adc094ddac::t_9be00120ccaca8 25
+  s_8726adc094ddac::t_07efe0825e4fae 37-38
+  s_8726adc094ddac::t_dbfbbf4f0a8da5 3-4,8-9
+frontend/composables/useAdaptive.ts
+  s_8726adc094ddac::t_ffd2d94a276c29 18
+  s_8726adc094ddac::t_3e5d25b00c1ec7 1-2,6-16,19-32,39,43-82,85,87-103
+  s_8726adc094ddac::t_73e03f1281e093 33
+  s_8726adc094ddac::t_bbb1ff900b9e0d 3
+  s_8726adc094ddac::t_90d27215ea5887 83
+backend/src/agentic_ui_demo/routers/adaptive.py
+  s_8726adc094ddac::t_0a399c1e09685c 1-11,23-76,80-164
+  s_8726adc094ddac::t_175ffab8c2a4b6 77-79
+  s_8726adc094ddac::t_d73641ba94841c 19
+frontend/composables/useProtocol.ts
+  s_8726adc094ddac::t_3b03af6bdc17be 79-81
+  s_8726adc094ddac::t_54430d20649567 1
+frontend/pages/approaches/server-streamed-ui.vue
+  s_8726adc094ddac::t_d0e713cf64b7f2 11-15
+  s_8726adc094ddac::t_e4726d2a661287 67-68
+  s_8726adc094ddac::t_1a5f8e4e9bb5db 103
+  s_8726adc094ddac::t_ceb88226f43528 81-84
+  s_8726adc094ddac::t_3a8c2e3387804e 17-18,58-59,66
+  s_8726adc094ddac::t_2ff2505e3298b5 73-75
+Dockerfile
+  s_8726adc094ddac::t_12b5074ca61186 30
+  s_8726adc094ddac::t_2d383bbf12257e 1-2,5,7-9,13-23,31-32,36,40,44,46-58,60-81
+  s_8726adc094ddac::t_310b8bc9dab787 3-4,6,24-29,33-35,37-39,41-43,45,59
+  s_8726adc094ddac::t_18858a69b397f0 10-12
+frontend/composables/useComponentChat.ts
+  s_8726adc094ddac::t_b16799bd738dc3 47
+  s_8726adc094ddac::t_f949bedb9c44a3 64
+  s_8726adc094ddac::t_4504385700e9e0 113-116
+  s_8726adc094ddac::t_55a8b520c23c28 3
+  s_8726adc094ddac::t_79eeca66f46456 79
+  s_8726adc094ddac::t_7f11022501d04d 31
+.github/workflows/ci.yml
+  s_8726adc094ddac::t_06fc055369c9ad 28
+  s_8726adc094ddac::t_754b2c51a212d8 71,73
+  s_8726adc094ddac::t_ce796b748219f3 56
+  s_8726adc094ddac::t_de22f216f78d10 48
+frontend/composables/useAgentApp.ts
+  s_8726adc094ddac::t_a442091b8d8acb 3
+  s_8726adc094ddac::t_d62b0eda12a43d 143
+  s_8726adc094ddac::t_0bccb992cfbc63 176
+  s_8726adc094ddac::t_e5dc848e79798f 35
+  s_8726adc094ddac::t_0cf16f07fac43c 217
+  s_8726adc094ddac::t_5aeec812c04442 211
+frontend/pages/approaches/protocol-decoupled.vue
+  s_8726adc094ddac::t_8306f04d538bbe 11-16
+backend/src/agentic_ui_demo/routers/rsc.py
+  s_8726adc094ddac::t_a2e1057cd14af1 8-12,14,21,38-42,45-46,49-97,105,116,125-127,130,134-137,140-141,144,147-150,152-162,165,173-176,268-271,290,295-296,304-306,312
+docker-compose.yml
+  s_8726adc094ddac::t_2a26092c01964b 1-70
+frontend/components/ComponentChatPanel.vue
+  s_8726adc094ddac::t_74a442d52c559d 73-76
+  s_8726adc094ddac::t_75b37d2665bde1 2-70
+.gitignore
+  s_8726adc094ddac::t_ecaa116062d7c1 1,3-33
+frontend/composables/useRscStream.ts
+  s_8726adc094ddac::t_42455da7b67590 3
+  s_8726adc094ddac::t_229bc2216ee616 26
+  s_8726adc094ddac::t_4618f7f12d8264 17
+  s_8726adc094ddac::t_c643063f1e5a33 74,77
+  s_8726adc094ddac::t_d79b257ef47545 53
+  s_8726adc094ddac::t_92eac9eae05f86 2
+  s_8ec5ab1301730f::t_0b9bde1a5da3b9 6-8,12,22,55,70
+shared/approaches.json
+  s_8726adc094ddac::t_53b817fce6a585 75
+  s_8726adc094ddac::t_5eca6d8dafa8e5 4
+frontend/composables/useGenerativeUi.ts
+  s_8726adc094ddac::t_af660650941788 61
+  s_8726adc094ddac::t_d09b572484cc84 17
+  s_8726adc094ddac::t_9819839de09f50 38-51
+  s_8726adc094ddac::t_fe6927839c57c4 3
+Makefile
+  s_8726adc094ddac::t_20662e2b12b914 7
+frontend/pages/approaches/intent-adaptive.vue
+  s_8726adc094ddac::t_56dc0ad2d86e74 13-14,19-85,91,93-144
+  s_8726adc094ddac::t_0116939a23d847 11-12,15-16
+  s_8726adc094ddac::t_3a8c2e3387804e 17,90
+  s_8726adc094ddac::t_f20cb0c5ccc71a 92
+frontend/pages/index.vue
+  s_8726adc094ddac::t_8cb0abcc7d66fb 2-4,12-129
+  s_8726adc094ddac::t_d730eaaf5594db 7-10
+  s_8726adc094ddac::t_b43b6663116708 5
+  s_8726adc094ddac::t_c55845e1c4c6dc 6
+  s_8726adc094ddac::t_90d9710f72e5a4 11
+backend/src/agentic_ui_demo/routers/agent.py
+  s_8726adc094ddac::t_b6846249e2e3d7 1-244
+frontend/types/wire.ts
+  s_8726adc094ddac::t_498f5ed5cd61d6 1-13
+backend/src/agentic_ui_demo/data/approaches.json
+  s_8726adc094ddac::t_844367968aa062 75
+  s_8726adc094ddac::t_a11935c2612810 4
+backend/tests/test_adaptive.py
+  s_8726adc094ddac::t_1aecb8fb4a78ce 1-86
+.pre-commit-config.yaml
+  s_8726adc094ddac::t_ec1cab681147bd 1
+frontend/components/TheHeader.vue
+  s_8726adc094ddac::t_c8b09ae09c206d 6
+backend/src/agentic_ui_demo/routers/components.py
+  s_8726adc094ddac::t_b6846249e2e3d7 1-249
+README.md
+  s_8726adc094ddac::t_d96de6c5fa3b61 126-139
+  s_8726adc094ddac::t_d742c588009580 187
+  s_8726adc094ddac::t_42b474ba6ca7a0 119
+  s_8726adc094ddac::t_adb915b4935cfb 190
+frontend/pages/approaches/sandboxed-code.vue
+  s_8726adc094ddac::t_58f9e29b8e18a5 70-71
+  s_8726adc094ddac::t_57051756580848 11-16
+  s_8726adc094ddac::t_3a8c2e3387804e 17-69
+  s_8726adc094ddac::t_ebcf641f4bd527 85-88
+  s_8726adc094ddac::t_e93b63ce6bf563 106
+.github/dependabot.yml
+  s_8726adc094ddac::t_473db360269b05 12
+  s_8726adc094ddac::t_675f86694f9525 21-22
+  s_8726adc094ddac::t_389a2a25762e7d 4
+frontend/components/WireInspector.vue
+  s_8726adc094ddac::t_79d0d2f4640ed6 10,12-18,20,25-27,29-53
+  s_8726adc094ddac::t_0c2fce5d40eb40 2-7,9,11,19,28
+  s_8726adc094ddac::t_799535ae208b0e 1
+  s_8726adc094ddac::t_45863be1870d19 8
+  s_8726adc094ddac::t_702881b3c8fdb5 21-24
+  s_8726adc094ddac::t_32afaa68a610b2 54
+frontend/components/InferencePanel.vue
+  s_8726adc094ddac::t_1d29dd462bd40e 1-37
+backend/src/agentic_ui_demo/config.py
+  s_8726adc094ddac::t_c2ab4f267bd34f 36-42
+frontend/pages/approaches/agentic-frontend.vue
+  s_8726adc094ddac::t_1dc4f0d8bae357 112-125
+  s_8726adc094ddac::t_7b05d034e3a9ca 107-109,126
+  s_8726adc094ddac::t_b2cd13b3d3311e 138
+  s_8726adc094ddac::t_3a8c2e3387804e 20-105
+  s_8726adc094ddac::t_5d6cc14eff24a6 11-16
+frontend/shared/approaches.json
+  s_8726adc094ddac::t_844367968aa062 75
+  s_8726adc094ddac::t_7c683a5515483c 4
+frontend/components/ChatPanel.vue
+  s_8726adc094ddac::t_798c990a524526 2-10,12-54,72
+  s_8726adc094ddac::t_3dff9b3234a748 58-60
+  s_8726adc094ddac::t_35466b313e887a 11,56
+  s_8726adc094ddac::t_233d1baada0c28 57
+frontend/pages/approaches/component-selection.vue
+  s_8726adc094ddac::t_292682f12e2f6e 11-16
+  s_8726adc094ddac::t_3a8c2e3387804e 17,20
+  s_8726adc094ddac::t_825dab80f2cec7 18,21-22
+  s_8726adc094ddac::t_9f39d2e5d80176 35-38
+  s_8726adc094ddac::t_3de70b652f9356 54-59
+  s_8726adc094ddac::t_61006255daca34 19,60
+backend/src/agentic_ui_demo/routers/chat.py
+  s_8726adc094ddac::t_a2e1057cd14af1 1-80
+frontend/pages/approaches/conversational-chatbot.vue
+  s_8726adc094ddac::t_948aeb5a707168 11-16
+  s_8726adc094ddac::t_6f112c00061986 18,21-22
+  s_8726adc094ddac::t_a53d55fbcc067d 55-59
+  s_8726adc094ddac::t_3a8c2e3387804e 17,20
+  s_8726adc094ddac::t_7b9a8e4e04ff11 23,32-38,41
+  s_8726adc094ddac::t_5cf7f03da6d79c 27
+  s_8726adc094ddac::t_60eec6d55b9e1d 19
+backend/tests/test_rsc.py
+  s_8726adc094ddac::t_14bf05c52bff0d 3-4,24-28,30-31,35-36,40-41,45-54,102-104,127-129
+frontend/components/RscHtmlStream.vue
+  s_8726adc094ddac::t_31d07816229621 2-4,8-28
+frontend/plugins/webcomponents.client.ts
+  s_8726adc094ddac::t_3e082d30730e0b 1-38
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.20",
+  "base_commit_sha": "45aaed8a27f9288afc2e8b7e36458474ddae0d66",
+  "prompts": {},
+  "humans": {
+    "h_a51360f058d7fc": {
+      "author": "Sebastian Messingfeld <sebastian@messeb.com>"
+    }
+  },
+  "sessions": {
+    "s_8726adc094ddac": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "54e9d9c9-ef87-4961-bf01-a61332105a3c",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Sebastian Messingfeld <sebastian@messeb.com>"
+    },
+    "s_8ec5ab1301730f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "agent-a6f10cba260baadbb",
+        "model": "unknown"
+      },
+      "human_author": "Sebastian Messingfeld <sebastian@messeb.com>"
+    }
+  }
+}
