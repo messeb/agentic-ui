@@ -1,18 +1,22 @@
 import { fileURLToPath } from 'node:url'
+import tailwindcss from '@tailwindcss/vite'
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: '2025-01-01',
   devtools: { enabled: true },
 
-  modules: ['@nuxtjs/tailwindcss', '@nuxt/eslint'],
+  modules: ['@nuxt/eslint'],
+
+  // Tailwind CSS v4 via its official Vite plugin (the @nuxtjs/tailwindcss module is v3-only).
+  vite: { plugins: [tailwindcss()] },
 
   // This demo doesn't use route rules / payload extraction; disabling the app manifest
   // avoids the dev-server "#app-manifest" resolve error and keeps the build lean.
   experimental: { appManifest: false },
 
-  // Code-highlighting theme for streamed Markdown (approach #1).
-  css: ['highlight.js/styles/github-dark.css'],
+  // Tailwind entry (defines the `ink` theme color) + code-highlighting theme for streamed Markdown (#1).
+  css: ['~/assets/css/tailwind.css', 'highlight.js/styles/github-dark.css'],
 
   // Approaches manifest (frontend/shared/approaches.json), imported via the @shared alias.
   alias: {

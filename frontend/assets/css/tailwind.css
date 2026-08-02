@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+/* Custom theme tokens. `--color-ink` generates the `*-ink` utilities (bg-ink, text-ink, border-ink, ring-ink). */
+@theme {
+  --color-ink: #0b1020;
+}
+
+/* Tailwind v4 defaults bare borders to currentColor; restore v3's light-gray default so the
+   UI matches the original design (elements that use `border` without an explicit color). */
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop {
+    border-color: var(--color-slate-200);
+  }
+}

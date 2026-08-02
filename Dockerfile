@@ -14,7 +14,7 @@
 #   → App http://localhost:8080  (API under http://localhost:8080/api, docs at /api/docs)
 
 ############################ 1. Build the Nuxt frontend → .output ############################
-FROM node:22-slim AS frontend
+FROM node:25-slim AS frontend
 RUN corepack enable
 WORKDIR /app
 COPY frontend/package.json frontend/pnpm-lock.yaml frontend/pnpm-workspace.yaml ./
@@ -24,7 +24,7 @@ COPY frontend/ ./
 RUN pnpm run build
 
 ############################ 2. Runtime: backend (uv) + frontend node server ############################
-FROM python:3.12-slim AS runtime
+FROM python:3.14-slim AS runtime
 RUN apt-get update && apt-get install -y --no-install-recommends curl ca-certificates \
  && rm -rf /var/lib/apt/lists/*
 # uv for the Python backend; the Node binary (no npm) to serve the Nuxt build.
