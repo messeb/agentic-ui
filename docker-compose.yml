@@ -1,0 +1,70 @@
+# Full-stack demo: FastAPI backend + Nuxt frontend + a bundled local LLM (Ollama).
+# One command runs everything — no hosted API key needed:
+#   docker compose up --build
+# First run pulls the model (qwen2.5:3b, ~1.9 GB, tool-calling capable).
+# Frontend: http://localhost:3000   Backend/docs: http://localhost:8000/docs
+services:
+  # Local, OpenAI-compatible LLM. Exposes /v1 on port 11434.
+  ollama:
+    image: ollama/ollama:latest
+    volumes:
+      - ollama-models:/root/.ollama
+    ports:
+      - "11434:11434"
+    healthcheck:
+      test: ["CMD", "ollama", "list"]
+      interval: 10s
+      timeout: 5s
+      retries: 15
+      start_period: 5s
+
+  # One-shot: pull the model into the ollama server on first start, then exit.
+  ollama-pull:
+    image: ollama/ollama:latest
+    depends_on:
+      ollama:
+        condition: service_healthy
+    environment:
+      OLLAMA_HOST: http://ollama:11434
+    entrypoint: ["ollama", "pull", "qwen2.5:3b"]
+    restart: "no"
+
+  backend:
+    build:
+      context: ./backend
+    image: agentic-ui-demo-backend
+    environment:
+      DEMO_ENVIRONMENT: docker
+      DEMO_CORS_ORIGINS: '["http://localhost:3000","http://127.0.0.1:3000"]'
+      # Point the backend at the bundled local LLM. Any non-empty key works — Ollama ignores it.
+      OPENAI_API_KEY: ollama
+      OPENAI_BASE_URL: http://ollama:11434/v1
+      DEMO_OPENAI_MODEL: qwen2.5:3b
+    ports:
+      - "8000:8000"
+    depends_on:
+      # Wait until the model has been pulled so the first request succeeds.
+      ollama-pull:
+        condition: service_completed_successfully
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://localhost:8000/api/health').status==200 else 1)"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
+
+  frontend:
+    build:
+      context: ./frontend
+    image: agentic-ui-demo-frontend
+    environment:
+      # The browser (not the container) calls this, so it must be the host-mapped port.
+      NUXT_PUBLIC_API_BASE: http://localhost:8000
+    ports:
+      - "3000:3000"
+    depends_on:
+      backend:
+        condition: service_started
+
+volumes:
+  ollama-models:

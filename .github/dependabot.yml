@@ -1,7 +1,7 @@
 version: 2
 updates:
   - package-ecosystem: uv
-    directory: /demo/backend
+    directory: /backend
     schedule:
       interval: weekly
     groups:
@@ -9,7 +9,7 @@ updates:
         patterns: ["*"]
 
   - package-ecosystem: npm
-    directory: /demo/frontend
+    directory: /frontend
     schedule:
       interval: weekly
     groups:
@@ -18,8 +18,8 @@ updates:
 
   - package-ecosystem: docker
     directories:
-      - /demo/backend
-      - /demo/frontend
+      - /backend
+      - /frontend
     schedule:
       interval: weekly
 

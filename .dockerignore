@@ -1,0 +1,15 @@
+# Keep the build context small and avoid copying local build artifacts into the image.
+**/node_modules
+**/.venv
+**/.nuxt
+**/.output
+**/.git
+**/__pycache__
+**/.pytest_cache
+**/.ruff_cache
+**/htmlcov
+**/.coverage
+**/dist
+**/.data
+sources
+*.log

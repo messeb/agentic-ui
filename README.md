@@ -116,12 +116,26 @@ Not a rung on the ladder but an **architectural layer under approaches 1–7** �
 | **MCP** (Model Context Protocol) | agent → **tools** | JSON-RPC access to external tools/resources/prompts (Anthropic, Nov 2024) |
 | **MCP Apps / MCP-UI** | agent → **generative UI** | a tool returns a `ui://` HTML resource, rendered in a sandboxed iframe, `postMessage` back to the host |
 | **AG-UI** | agent → **user interface** | event stream syncing agent activity to the UI |
-| *(A2A / A2UI, Open-JSON-UI — adjacent/competing)* | agent ↔ agent / UI | still-settling standards |
+| *(A2A — agent ↔ agent)* | agent → **other agents** | different layer; not a UI spec (listed only to disambiguate from A2UI below) |
 
 - **Input / Output:** Messages + tool/component descriptions in → a **stream of typed protocol events** out. AG-UI defines **16 event types** across five groups (lifecycle, text message, tool call, state, special), incl. **`STATE_DELTA` (a JSON Patch / RFC 6902 array) and `STATE_SNAPSHOT` (full state)** for efficient bidirectional sync. Everything is a "Run" (all messages answering one question) grouped into threads; content splits into deltas for streaming.
 - **What you need:** The protocol SDK (TS/Python), a framework adapter, a transport (SSE/WebSockets/binary), and usually a thin framework wrapper. MCP-UI ships `@mcp-ui/client` + `@mcp-ui/server` for "write once, render everywhere."
 - **Best for:** Multi-framework/multi-vendor orgs avoiding lock-in; overkill for a single app that will never swap its agent backend.
 - **Trade-offs:** ➕ True frontend/backend/vendor decoupling; streaming built in; inspectable in DevTools; broad adopter momentum (Google, AWS, Microsoft, Oracle, LangChain, Mastra). ➖ Young specs (MCP Apps launched Jan 2026) with maturing tooling/security practices; short-term fragmentation across competing UI specs.
+
+#### Competing generative-UI payload specs
+
+A key distinction the layers above blur: **AG-UI is the agent↔UI *event/transport contract*, but the actual *UI payload* it carries is not yet standardized** — three specs compete for that slot, and AG-UI natively supports all three. They compete with **each other**, not with AG-UI or MCP. Two are **declarative component trees** (the model names components + props; the client renders them with its *own* trusted widgets — safe, no code execution), and one is a **sandboxed HTML document** (the server returns markup rendered in an isolated iframe — maximally flexible, heavier isolation). This is the same **#3-vs-#4 tension** this list already draws, standardized:
+
+| Spec | Maintainer | Payload / wire format | Rendering model | Analog here |
+|---|---|---|---|:---:|
+| **A2UI** | **Google** (open project, `github.com/google/A2UI`) | JSONL stream of component/data-binding messages | Declarative tree → client's **trusted native widgets** (Card, Button, …); no code runs | #3 / #5 |
+| **Open-JSON-UI** | **OpenAI** (open standardization of its internal schema) | Typed JSON component definitions | Declarative tree → client's trusted components; type-safe, OpenAI-model-friendly | #3 / #5 |
+| **MCP-UI → MCP Apps** | Community: **Ido Salomon & Liad Yosef**; standardized as MCP Apps (SEP-1865) by **Anthropic + OpenAI** with them, Jan 2026 | A tool returns a `ui://` **HTML resource** | Rendered in a **sandboxed iframe**, `postMessage` back to host; "security by default" (CSP, no top-nav) | #4 |
+
+> **Attribution note:** MCP-UI is *not* a Microsoft/Shopify project — those are adopters/hosts. It was created by Ido Salomon & Liad Yosef (community), then its patterns were folded into **MCP Apps**, the first official MCP extension, co-authored by MCP Core Maintainers at **Anthropic and OpenAI** together with the mcp-ui creators.
+>
+> The one axis that separates them: **declarative component tree** (A2UI · Open-JSON-UI — render into the host's design system, no code) **vs. sandboxed HTML document** (MCP-UI/MCP Apps — arbitrary markup, isolated). Sources: [A2UI](https://developers.googleblog.com/introducing-a2ui-an-open-project-for-agent-driven-interfaces/) · [Open-JSON-UI](https://docs.copilotkit.ai/learn/generative-ui/specs/open-json-ui) · [AG-UI GenUI specs](https://docs.ag-ui.com/concepts/generative-ui-specs) · [MCP Apps](https://blog.modelcontextprotocol.io/posts/2026-01-26-mcp-apps/).
 
 ---
 
@@ -170,8 +184,8 @@ These apply to every approach beyond a plain chatbot and should be designed in f
 
 ## Demo workspace
 
-A runnable scaffold with **all 8 approaches fully implemented** lives in [`demo/`](./demo/README.md) — Python/FastAPI (uv) + Vue/Nuxt, Docker, and CI, wiring the shared manifest → backend → frontend end-to-end: a streaming OpenAI chatbot (SSE); a tool-calling agent loop with a human-in-the-loop permission gate; Structured-Output component selection (combined with a real booking call); generative UI where model-written JS runs in a locked-down sandboxed iframe; server-streamed UI (a framework-native take on the RSC/`streamUI` pattern); an intent-based adaptive UI driven by implicit telemetry (no chat, no API key); an agentic "UI as toolbox" frontend where a goal drives a stateless dispatcher loop with a HITL booking gate; and a protocol-decoupled layer where the UI is a pure function of a typed AG-UI event stream (with `STATE_DELTA` JSON Patch and an MCP-UI `ui://` sandboxed-iframe resource).
+A runnable implementation with **all 8 approaches fully built** lives in this repo — Python/FastAPI (uv) + Vue/Nuxt, Docker, and CI, wiring the shared manifest → backend → frontend end-to-end (see [`DEVELOPMENT.md`](./DEVELOPMENT.md)): a streaming OpenAI chatbot (SSE); a tool-calling agent loop with a human-in-the-loop permission gate; Structured-Output component selection (combined with a real booking call); generative UI where model-written JS runs in a locked-down sandboxed iframe; server-streamed UI (a framework-native take on the RSC/`streamUI` pattern); an intent-based adaptive UI driven by implicit telemetry (no chat, no API key); an agentic "UI as toolbox" frontend where a goal drives a stateless dispatcher loop with a HITL booking gate; and a protocol-decoupled layer where the UI is a pure function of a typed AG-UI event stream (with `STATE_DELTA` JSON Patch and an MCP-UI `ui://` sandboxed-iframe resource).
 
 ```bash
-cd demo && docker compose up --build   # frontend :3000 · backend :8000/docs
+docker compose up --build   # from repo root · frontend :3000 · backend :8000/docs
 ```
