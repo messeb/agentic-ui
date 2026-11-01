@@ -25,7 +25,7 @@ RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store \
 RUN pnpm run build
 
 ############################ 2. Runtime: backend (uv) + frontend node server ############################
-FROM python:3.14-slim AS runtime
+FROM python:3.15-slim AS runtime
 # libatomic1: the Node 26 binary copied from the frontend stage links against libatomic.so.1.
 RUN apt-get update && apt-get install -y --no-install-recommends curl ca-certificates libatomic1 \
  && rm -rf /var/lib/apt/lists/*
